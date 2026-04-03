@@ -9,65 +9,52 @@ export default function Hero() {
       <div className="hero-inner">
         <div className="hero-left">
           <div className="hero-tags">
-            <span className="tag">Investment Analytics</span>
-            <span className="tag">200 Members Max</span>
-            <span className="tag">Est. 2016</span>
+            <span className="tag">Crypto Analytics & Capital Allocation</span>
+            <span className="tag">Investor Community</span>
+            <span className="tag">Application Only</span>
           </div>
           <h1>
-            Crypto Analytics
+            Invest With Structure.
             <br />
-            <span className="amp">&amp;</span> Capital Allocation
+            Allocate With Conviction.
           </h1>
           <p className="hero-sub">
-            Data-driven investment frameworks, exclusive to our select investor
-            community
+            Proprietary crypto and macro frameworks that turn data into
+            actionable investment decisions, exclusive to our select investor
+            community.
           </p>
           <div className="hero-actions">
             <a href="#" className="btn-primary">
               <DiscordIcon />
               Apply to Join
             </a>
-            <a href="#how" className="btn-ghost">
-              See How It Works &rarr;
+            <a href="https://analytics.blockphi.com" target="_blank" rel="noopener noreferrer" className="btn-analytics">
+              <span className="btn-analytics-label">Analytics Terminal</span>
+              <svg className="btn-analytics-arrow" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </a>
           </div>
         </div>
 
         <div className="hero-right">
           <div className="vsl-container">
+            <img
+              src="/images/placeholder-vsl-thumbnail.png"
+              alt="Watch Overview"
+              className="vsl-thumbnail"
+            />
             <div className="vsl-inner">
               <div className="play-btn">
                 <svg viewBox="0 0 24 24">
                   <polygon points="8,5 20,12 8,19" />
                 </svg>
               </div>
-              <div className="vsl-label">Watch Overview</div>
-              <div className="vsl-duration">9 min</div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="hero-bottom">
-        <div className="scroll-hint">
-          <div className="scroll-line" />
-          <div className="scroll-text">Scroll</div>
-        </div>
-        <div className="hero-stats">
-          <div className="stat">
-            <div className="num">40&times;</div>
-            <div className="label">Portfolio Growth</div>
-          </div>
-          <div className="stat">
-            <div className="num">10+</div>
-            <div className="label">Analysts</div>
-          </div>
-          <div className="stat">
-            <div className="num">2016</div>
-            <div className="label">Active Since</div>
-          </div>
-        </div>
-      </div>
     </section>
   );
 }

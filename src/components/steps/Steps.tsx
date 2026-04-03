@@ -43,9 +43,9 @@ export default function Steps() {
               <h3 className="step-title">Allocate across all markets</h3>
               <p className="step-desc">
                 Sometimes crypto isn&apos;t the right call. BlockPhi covers
-                capital allocation across all markets — which sectors to be in,
-                when to be in crypto at all, and when to rotate into other
-                assets.
+                capital allocation across equities, commodities, bonds, and
+                macro — which markets to be in, when to be in crypto at all,
+                and when to rotate out entirely.
               </p>
             </div>
           </div>

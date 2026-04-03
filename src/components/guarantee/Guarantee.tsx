@@ -2,7 +2,7 @@ import ScrollReveal from "../ui/ScrollReveal";
 
 export default function Guarantee() {
   return (
-    <section className="guarantee">
+    <section className="guarantee bg-card">
       <ScrollReveal className="container">
         <div className="guarantee-badge">
           <svg viewBox="0 0 24 24">

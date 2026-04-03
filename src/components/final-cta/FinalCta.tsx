@@ -3,7 +3,7 @@ import ScrollReveal from "../ui/ScrollReveal";
 
 export default function FinalCta() {
   return (
-    <section className="final-cta">
+    <section className="final-cta bg-base">
       <ScrollReveal className="container">
         <h2 className="final-cta-title">
           You&apos;ve been doing this

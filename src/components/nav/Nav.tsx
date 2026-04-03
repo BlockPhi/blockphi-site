@@ -1,65 +1,49 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Nav() {
   return (
     <nav>
       <Link href="/" className="logo">
-        <svg
+        <Image
+          src="/images/BlockPhi-Icon-White-PNG.png"
+          alt="BlockPhi Capital"
+          width={24}
+          height={32}
           className="logo-symbol"
-          viewBox="0 0 100 100"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle
-            cx="50"
-            cy="42"
-            r="24"
-            stroke="#001F3F"
-            strokeWidth="2.5"
-            fill="none"
-          />
-          <line
-            x1="50"
-            y1="14"
-            x2="50"
-            y2="8"
-            stroke="#001F3F"
-            strokeWidth="2.5"
-          />
-          <line
-            x1="50"
-            y1="70"
-            x2="50"
-            y2="90"
-            stroke="#001F3F"
-            strokeWidth="2.5"
-          />
-          <line
-            x1="42"
-            y1="66"
-            x2="58"
-            y2="66"
-            stroke="#001F3F"
-            strokeWidth="2"
-          />
-          <path
-            d="M42 38 C42 32 46 28 50 28 C54 28 58 32 58 38 C58 42 56 45 53 47 L53 52 C53 54 50 56 50 56 C50 56 47 54 47 52 L47 47 C44 45 42 42 42 38Z"
-            fill="#001F3F"
-            opacity="0.7"
-          />
-        </svg>
-        <span className="logo-text">
-          BlockPhi <span>Capital</span>
-        </span>
+          style={{ objectFit: "contain" }}
+        />
+        <Image
+          src="/images/BLOCKPHI.png"
+          alt="BlockPhi"
+          width={120}
+          height={16}
+          className="logo-wordmark"
+          style={{ objectFit: "contain" }}
+        />
       </Link>
       <div className="nav-right">
-        <Link href="/">Home</Link>
-        <Link href="#">Analytics</Link>
-        <Link href="#">Services</Link>
-        <Link href="#">Insights</Link>
-        <Link href="#">About</Link>
+        <Link href="/insights">Insights</Link>
+        <div className="nav-dropdown">
+          <Link href="/about" className="nav-dropdown-trigger">
+            About
+            <svg width="8" height="8" viewBox="0 0 10 10" fill="none" className="nav-dropdown-chevron">
+              <path d="M2 4L5 7L8 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </Link>
+          <div className="nav-dropdown-menu">
+            <Link href="/about#contact">Contact</Link>
+          </div>
+        </div>
         <Link href="#" className="nav-cta">
           Apply to Join
         </Link>
+        <a href="https://analytics.blockphi.com" target="_blank" rel="noopener noreferrer" className="nav-cta-outline">
+          Analytics Terminal
+          <svg className="nav-cta-arrow" width="8" height="8" viewBox="0 0 10 10" fill="none">
+            <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </a>
       </div>
       <button className="hamburger" aria-label="Menu">
         <span></span>

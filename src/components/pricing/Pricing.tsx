@@ -2,23 +2,44 @@ import ScrollReveal from "../ui/ScrollReveal";
 
 export default function Pricing() {
   return (
-    <section className="section" id="pricing">
+    <section className="section bg-elevated bg-navy-depth" id="pricing">
       <div className="container">
         <ScrollReveal className="section-header">
           <span className="section-tag">Membership</span>
           <h2 className="section-title">Choose your level of access.</h2>
           <p className="section-sub">
-            Every tier includes full community access. The price is a filter, not
-            a barrier.
+            Start for free. Upgrade when you&apos;re ready. The price is a
+            filter, not a barrier.
           </p>
         </ScrollReveal>
 
         <ScrollReveal className="pricing-grid" stagger>
+          {/* Free */}
+          <div className="tier tier--free">
+            <div className="tier-name">Free</div>
+            <div className="tier-desc">
+              Read-only access to the community.
+            </div>
+            <div className="tier-price">
+              <span className="tier-amount">$0</span>
+              <span className="tier-period">/forever</span>
+            </div>
+            <ul className="tier-features">
+              <li>Read-only Discord</li>
+              <li>Public research</li>
+              <li>Show archives</li>
+              <li>Market updates</li>
+            </ul>
+            <a href="#" className="tier-cta">
+              Join for Free
+            </a>
+          </div>
+
           {/* Member */}
           <div className="tier">
             <div className="tier-name">Member</div>
             <div className="tier-desc">
-              Community access with read-only analytics.
+              Full community access with analytics.
             </div>
             <div className="tier-price">
               <span className="tier-amount">$59</span>
@@ -73,7 +94,7 @@ export default function Pricing() {
             <ul className="tier-features">
               <li>Everything in Gold</li>
               <li>Direct DM access to me</li>
-              <li>Monthly private call</li>
+              <li>Monthly private advisory call</li>
               <li>Full portfolio review</li>
               <li>Personal network access</li>
             </ul>
