@@ -7,6 +7,7 @@ export default function MediumArticles() {
 
   useEffect(() => {
     function handleMessage(e: MessageEvent) {
+      if (e.origin !== 'https://medium-widget.vercel.app') return;
       if (e.data && e.data.type === 'mw-resize' && typeof e.data.height === 'number') {
         const iframe = iframeRef.current;
         if (iframe) {

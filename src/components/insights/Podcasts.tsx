@@ -224,8 +224,3 @@ export function PodcastsSection() {
     </div>
   );
 }
-
-// Keep default export for backward compat
-export default function Podcasts() {
-  return <Livestreams />;
-}
