@@ -8,15 +8,17 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import SubstackSubscribe from "@/components/insights/SubstackSubscribe";
 
 export const metadata: Metadata = {
-  title: "Insights — BlockPhi Capital",
+  title: "Insights | BlockPhi",
   description:
-    "Research, analysis, and market commentary from BlockPhi Capital. Institutional-grade crypto and macro insights.",
+    "Research, analysis, and market commentary from BlockPhi. Institutional-grade crypto and macro insights.",
 };
 
 export default function InsightsPage() {
   return (
     <>
       <Nav />
+      <main id="main-content">
+      <h1 className="sr-only">Insights</h1>
 
       {/* Medium Articles — Primary Section */}
       <section className="insights-section insights-section--research insights-first bg-base">
@@ -40,7 +42,7 @@ export default function InsightsPage() {
               <h2>Weekly Shows</h2>
               <p className="insights-section-desc">
                 Two recurring shows covering crypto markets, macro data, and
-                Bitcoin valuation from every angle.
+                Bitcoin valuation.
               </p>
             </div>
             <Livestreams />
@@ -91,6 +93,7 @@ export default function InsightsPage() {
         </section>
       </ScrollReveal>
 
+      </main>
       <Footer />
     </>
   );
