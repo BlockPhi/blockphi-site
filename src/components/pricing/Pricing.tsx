@@ -133,7 +133,7 @@ export default function Pricing() {
             <path d="M9 12l2 2 4-4" />
             <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
           </svg>
-          <span>7-day money-back guarantee on all paid tiers</span>
+          <span>7-day refund policy on all paid tiers</span>
         </ScrollReveal>
       </div>
     </section>
