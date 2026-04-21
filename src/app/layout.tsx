@@ -146,7 +146,6 @@ export default function RootLayout({
         <link rel="preconnect" href="https://www.youtube.com" />
         <link rel="preconnect" href="https://img.youtube.com" crossOrigin="" />
         <link rel="preconnect" href="https://i.ytimg.com" crossOrigin="" />
-        <link rel="preconnect" href="https://substackapi.com" />
         <link rel="preconnect" href="https://formsubmit.co" />
       </head>
       <body>

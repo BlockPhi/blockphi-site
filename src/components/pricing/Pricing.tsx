@@ -1,4 +1,11 @@
 import ScrollReveal from "../ui/ScrollReveal";
+import SectionTitle from "../ui/SectionTitle";
+import {
+  TIER_FREE_URL,
+  TIER_GOLD_URL,
+  TIER_INNER_CIRCLE_URL,
+  TIER_MEMBER_URL,
+} from "@/lib/links";
 
 export default function Pricing() {
   return (
@@ -6,10 +13,10 @@ export default function Pricing() {
       <div className="container">
         <ScrollReveal className="section-header">
           <span className="section-tag">Membership</span>
-          <h2 className="section-title">Choose your level of access.</h2>
+          <SectionTitle>Choose your level of access.</SectionTitle>
           <p className="section-sub">
-            Start for free. Upgrade when you&apos;re ready. The price is a
-            filter, not a barrier.
+            Frameworks, tools, and a vetted network. Everything required to
+            allocate capital with conviction.
           </p>
         </ScrollReveal>
 
@@ -18,20 +25,22 @@ export default function Pricing() {
           <div className="tier tier--free">
             <div className="tier-name">Free</div>
             <div className="tier-desc">
-              Read-only access to the community.
+              Read-only access to select channels.
             </div>
             <div className="tier-price">
               <span className="tier-amount">$0</span>
               <span className="tier-period">/forever</span>
             </div>
             <ul className="tier-features">
-              <li>Read-only Discord</li>
-              <li>Public research</li>
-              <li>Show archives</li>
-              <li>Market updates</li>
+              <li>Select Discord channels</li>
             </ul>
-            <a href="#" className="tier-cta">
-              Join for Free
+            <a
+              href={TIER_FREE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="tier-cta"
+            >
+              Join Free
             </a>
           </div>
 
@@ -39,7 +48,7 @@ export default function Pricing() {
           <div className="tier">
             <div className="tier-name">Member</div>
             <div className="tier-desc">
-              Full community access with analytics.
+              Full community access.
             </div>
             <div className="tier-price">
               <span className="tier-amount">$59</span>
@@ -47,12 +56,16 @@ export default function Pricing() {
             </div>
             <ul className="tier-features">
               <li>Full community access</li>
-              <li>Daily market discussion</li>
-              <li>Read-only framework access</li>
-              <li>Member referral program</li>
+              <li>Daily market commentary</li>
+              <li>Access to 10+ analysts</li>
             </ul>
-            <a href="#" className="tier-cta">
-              Join as Member
+            <a
+              href={TIER_MEMBER_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="tier-cta"
+            >
+              Apply for Membership
             </a>
           </div>
 
@@ -73,9 +86,14 @@ export default function Pricing() {
               <li>Real-time portfolio positions</li>
               <li>Macro-liquidity frameworks</li>
               <li>Premium research sources</li>
-              <li>Annual in-person meetup</li>
+              <li>Annual in-person summit</li>
             </ul>
-            <a href="#" className="tier-cta">
+            <a
+              href={TIER_GOLD_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="tier-cta"
+            >
               Apply for Gold
             </a>
             <div className="tier-cap">Capped at 200 members</div>
@@ -85,7 +103,7 @@ export default function Pricing() {
           <div className="tier">
             <div className="tier-name">Inner Circle</div>
             <div className="tier-desc">
-              Gold + personal mentorship and direct access.
+              Gold + personal advisory and direct access.
             </div>
             <div className="tier-price">
               <span className="tier-amount">$499</span>
@@ -98,11 +116,24 @@ export default function Pricing() {
               <li>Full portfolio review</li>
               <li>Personal network access</li>
             </ul>
-            <a href="#" className="tier-cta">
+            <a
+              href={TIER_INNER_CIRCLE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="tier-cta"
+            >
               Apply for Inner Circle
             </a>
             <div className="tier-cap">Limited to 10 clients</div>
           </div>
+        </ScrollReveal>
+
+        <ScrollReveal className="pricing-guarantee">
+          <svg className="pricing-guarantee-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9 12l2 2 4-4" />
+            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+          </svg>
+          <span>7-day money-back guarantee on all paid tiers</span>
         </ScrollReveal>
       </div>
     </section>

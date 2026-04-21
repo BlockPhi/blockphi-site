@@ -10,12 +10,10 @@ export default function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  // Treat /about and /about#contact as the same top-level "About" section.
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
   const ariaCurrent = (href: string) => (isActive(href) ? "page" : undefined);
 
-  // Close the mobile menu when the viewport grows past the nav breakpoint.
   useEffect(() => {
     const mql = window.matchMedia("(min-width: 961px)");
     const onChange = () => {
@@ -32,7 +30,6 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Lock body scroll while menu is open.
   useEffect(() => {
     if (mobileOpen) {
       const prev = document.body.style.overflow;
@@ -43,7 +40,6 @@ export default function Nav() {
     }
   }, [mobileOpen]);
 
-  // Escape key closes the mobile menu (keyboard accessibility).
   useEffect(() => {
     if (!mobileOpen) return;
     const onKey = (e: KeyboardEvent) => {

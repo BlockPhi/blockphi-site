@@ -41,9 +41,6 @@ export default function ContactForm() {
     message: messageRef,
   };
 
-  // Clearing the error as the user types makes the form feel responsive
-  // rather than accusatory — they get immediate confirmation that their
-  // correction is being registered.
   function clearError(field: FieldName) {
     setFieldErrors((prev) => {
       if (!prev[field]) return prev;
@@ -71,8 +68,6 @@ export default function ContactForm() {
 
     const firstInvalid = FIELD_ORDER.find((f) => errs[f]);
     if (firstInvalid) {
-      // Auto-focus the first field that failed so the user lands on the
-      // exact spot they need to fix.
       refs[firstInvalid].current?.focus();
       return;
     }

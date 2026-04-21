@@ -30,7 +30,7 @@ export default function AboutPage() {
             <p className="about-lead">
               BlockPhi is an investment analytics firm that builds
               proprietary frameworks for crypto and cross-market capital
-              allocation. We serve a select community of serious investors
+              allocation. We serve a select circle of serious investors
               who value rigorous analysis over noise.
             </p>
             <div className="about-name-origin">
@@ -112,10 +112,11 @@ export default function AboutPage() {
                   <h3>Jack Green</h3>
                   <span className="about-team-role">Founder & Editor-in-Chief</span>
                   <p>
-                    Jack is the founder of BlockPhi and the mind behind its
-                    proprietary analytics frameworks. He hosts Setup Saturday, Bitcoin
-                    Under The Loupe, and the Pursuing Value Podcast, reaching
-                    thousands of investors weekly with data-driven market analysis.
+                    Jack is the founder and head of research at BlockPhi,
+                    leading development of the firm&apos;s proprietary analytics
+                    frameworks. He hosts Setup Saturday, Bitcoin Under The
+                    Loupe, and the Pursuing Value Podcast, reaching thousands
+                    of investors weekly with data-driven market analysis.
                   </p>
                   <div className="about-team-socials">
                     <a href="https://x.com/jackgreencrypto" target="_blank" rel="noopener noreferrer" aria-label="X">

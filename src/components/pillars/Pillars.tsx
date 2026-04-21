@@ -52,7 +52,8 @@ export default function Pillars() {
           <SectionTitle>Two pillars. One edge.</SectionTitle>
           <p className="section-sub">
             BlockPhi is your all-in-one framework for wealth management across crypto and global markets.
-            Built for investors who think in years, not candles. Quantitative macro analytics and collective intelligence.
+            <br />
+            Built for investors who think in years, not candles. Quantitative macro analytics and a curated peer circle.
           </p>
         </ScrollReveal>
 
@@ -169,8 +170,8 @@ export default function Pillars() {
             </div>
             <h3>Curated Investor Circle</h3>
             <p>
-              An invitation-only environment of high-net-worth individuals and
-              institutional players sharing high-conviction thesis reports.
+              An invitation-only circle of high-net-worth individuals and
+              institutions sharing high-conviction thesis reports.
             </p>
 
             {/* Noise-to-signal funnel visual */}
@@ -214,7 +215,7 @@ export default function Pillars() {
               </div>
             </div>
             <p className="funnel-caption">
-              47 tabs. 12 groups. Endless noise.<br />
+              Many sources.<br />
               <span>One signal.</span>
             </p>
           </div>

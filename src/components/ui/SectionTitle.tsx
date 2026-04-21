@@ -16,8 +16,6 @@ export default function SectionTitle({ children, className = "" }: Props) {
     if (!el) return;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      // Defer to next frame so the setState isn't in the effect's
-      // synchronous body (React 19 set-state-in-effect rule).
       const id = requestAnimationFrame(() => setVisible(true));
       return () => cancelAnimationFrame(id);
     }

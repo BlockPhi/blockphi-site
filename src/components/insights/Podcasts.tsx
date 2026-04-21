@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 interface Episode {
   id: string;
@@ -50,7 +51,14 @@ function ShowCard({ show }: { show: ShowData }) {
         className="podcast-card"
       >
         <div className="podcast-cover">
-          <img src={show.cover} alt={show.name} loading="lazy" />
+          <Image
+            src={show.cover}
+            alt={`${show.name} cover art`}
+            width={480}
+            height={480}
+            sizes="(max-width: 640px) 100vw, 320px"
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
         </div>
         <div className="podcast-info">
           <h3>{show.name}</h3>
@@ -145,7 +153,14 @@ export function Livestreams() {
             className="podcast-card"
           >
             <div className="podcast-cover">
-              <img src={show.cover} alt={show.name} loading="lazy" />
+              <Image
+                src={show.cover}
+                alt={`${show.name} cover art`}
+                width={480}
+                height={480}
+                sizes="(max-width: 640px) 100vw, 50vw"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
             </div>
             <div className="podcast-info">
               <h3>{show.name}</h3>

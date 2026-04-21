@@ -31,9 +31,6 @@ export default function CountUp({
       if (started) return;
       started = true;
       if (prefersReducedMotion) {
-        // Skip the animation entirely for reduced-motion users: jump to
-        // the final value. Called from a callback (setTimeout / observer),
-        // so the setState is outside the effect's synchronous body.
         setValue(to);
         return;
       }

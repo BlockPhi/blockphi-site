@@ -39,9 +39,6 @@ export default function CookieConsent() {
   );
   const [manuallyOpened, setManuallyOpened] = useState(false);
 
-  // Footer "Cookie settings" link forces the banner back open even if
-  // consent was previously recorded. Listener is outside any synchronous
-  // setState in the effect body.
   useEffect(() => {
     const onReopen = () => setManuallyOpened(true);
     window.addEventListener(OPEN_EVENT, onReopen);
@@ -50,8 +47,8 @@ export default function CookieConsent() {
 
   const setConsent = useCallback((value: Consent) => {
     localStorage.setItem(STORAGE_KEY, value);
-    // CustomEvent notifies the useSyncExternalStore subscription so the
-    // banner re-evaluates its visibility without a full page reload.
+    // CustomEvent is what useSyncExternalStore subscribes to — localStorage
+    // doesn't fire `storage` in the same tab that writes it.
     window.dispatchEvent(new CustomEvent(CONSENT_EVENT, { detail: value }));
     setManuallyOpened(false);
   }, []);

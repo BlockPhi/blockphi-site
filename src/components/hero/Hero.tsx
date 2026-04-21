@@ -4,6 +4,14 @@ import HeroSpotlight from "./HeroSpotlight";
 import HeroScrollFade from "./HeroScrollFade";
 import CountUp from "@/components/ui/CountUp";
 
+const PARTNERS = [
+  { name: "Kraken",      href: "https://kraken.pxf.io/kOW4gv",              logo: "/images/partners/kraken.svg",      w: 94, h: 16 },
+  { name: "Ledger",      href: "https://shop.ledger.com/?r=5e80d45c0500",   logo: "/images/partners/ledger.svg",      w: 66, h: 22 },
+  { name: "Bybit",       href: "https://partner.bybit.com/b/JACKGREEN",     logo: "/images/partners/bybit.svg",       w: 68, h: 22 },
+  { name: "TradingView", href: "https://www.tradingview.com/?aff_id=143172", logo: "/images/partners/tradingview.svg", w: 20, h: 20, lockup: true },
+  { name: "Tangem",      href: "https://tangem.com/invite/BLOCKPHI",        logo: "/images/partners/tangem.svg",      w: 78, h: 18 },
+];
+
 export default function Hero() {
   return (
     <section className="hero">
@@ -51,64 +59,41 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* Partner wordmarks — affiliate links (rel="sponsored" per Google
-              guidelines). Real brand SVGs rendered monochrome via CSS filter.
-              Plain <img> used intentionally — local SVGs don't need Next's
-              image optimizer and next/image blocks them by default.
-              Label kept because it adds an explicit trust cue — logos alone
-              read as "partners of some kind"; the label commits to "trust". */}
+          {/* Plain <img> on purpose: next/image blocks local SVGs, and the
+              CSS filter pipeline needs the raw <img> element. The PARTNERS
+              array is rendered twice so the row can be an infinite marquee
+              on mobile; the second pass is aria-hidden and removed from tab
+              order. On desktop the duplicate set is display:none'd by CSS. */}
           <div className="hero-partners" aria-label="Trusted partners">
             <span className="hero-partners-label">Trusted Partners</span>
             <div className="hero-partners-row">
-              <a
-                href="https://partner.bybit.com/b/JACKGREEN"
-                target="_blank"
-                rel="noopener noreferrer sponsored"
-                className="hero-partner"
-                aria-label="Bybit (opens in a new tab)"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/images/partners/bybit.svg"
-                  alt=""
-                  width={68}
-                  height={22}
-                  className="hero-partner-logo"
-                />
-              </a>
-              <a
-                href="https://kraken.pxf.io/kOW4gv"
-                target="_blank"
-                rel="noopener noreferrer sponsored"
-                className="hero-partner"
-                aria-label="Kraken (opens in a new tab)"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/images/partners/kraken.svg"
-                  alt=""
-                  width={94}
-                  height={16}
-                  className="hero-partner-logo"
-                />
-              </a>
-              <a
-                href="https://www.tradingview.com/?aff_id=143172"
-                target="_blank"
-                rel="noopener noreferrer sponsored"
-                className="hero-partner hero-partner--lockup"
-                aria-label="TradingView (opens in a new tab)"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/images/partners/tradingview.svg"
-                  alt=""
-                  width={20}
-                  height={20}
-                  className="hero-partner-logo"
-                />
-                <span className="hero-partner-word">TradingView</span>
-              </a>
+              <div className="hero-partners-track">
+                {[...PARTNERS, ...PARTNERS].map((p, i) => {
+                  const isDupe = i >= PARTNERS.length;
+                  return (
+                    <a
+                      key={i}
+                      href={p.href}
+                      target="_blank"
+                      rel="noopener noreferrer sponsored"
+                      className={`hero-partner${p.lockup ? " hero-partner--lockup" : ""}${isDupe ? " hero-partner--dupe" : ""}`}
+                      aria-label={isDupe ? undefined : `${p.name} (opens in a new tab)`}
+                      aria-hidden={isDupe ? true : undefined}
+                      tabIndex={isDupe ? -1 : undefined}
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={p.logo}
+                        alt=""
+                        width={p.w}
+                        height={p.h}
+                        className="hero-partner-logo"
+                      />
+                      {p.lockup && <span className="hero-partner-word">{p.name}</span>}
+                    </a>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>

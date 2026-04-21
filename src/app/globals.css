@@ -91,12 +91,12 @@ body {
   color: var(--white);
   font-family: var(--body);
   font-weight: 300;
-  /* Light text on a dark background reads as lighter weight and needs
-     more leading than the same body size on a light background. */
+  /* Light-on-dark reads lighter and needs more leading than dark-on-light. */
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  font-optical-sizing: auto;
 }
 
 /* Lenis smooth-scroll companion styles — recommended pairing from
@@ -174,12 +174,6 @@ a {
    branded selection, focus-visible, scrollbar,
    image fade-in. No layout or token changes.
    ═══════════════════════════════════════════ */
-
-/* Opt into Cormorant's variable-font optical sizing so the serif
-   auto-tunes its stroke weight at different sizes. */
-body {
-  font-optical-sizing: auto;
-}
 
 /* Balance wraps on every headline; pretty wraps on body copy so the
    final two lines don't leave orphans or ragged ends. */
@@ -914,7 +908,12 @@ nav {
   .hero-inner,
   .hero-bottom {
     opacity: 1;
-    filter: none;
+    /* blur(0.01px) instead of blur(0) because LightningCSS optimizes
+       blur(0) away to the invalid `blur()` syntax, and `filter: none`
+       is not interpolable from `filter: blur(6px)` (the browser needs
+       matching function types to animate between them). 0.01px is
+       visually identical to no blur but keeps the animation fluid. */
+    filter: blur(0.01px);
   }
 }
 
@@ -1344,7 +1343,7 @@ nav {
   margin-top: auto;
   padding-top: clamp(1.8rem, 3vw, 2.4rem);
   border-top: 1px solid var(--white-06);
-  max-width: 460px;
+  max-width: 560px;
   opacity: 0;
   animation: fadeUp 0.8s var(--ease) 1.1s forwards;
 }
@@ -1361,10 +1360,63 @@ nav {
 }
 
 .hero-partners-row {
+  overflow: hidden;
+}
+
+.hero-partners-track {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: clamp(1.75rem, 3.5vw, 2.75rem);
+  gap: clamp(1.2rem, 2.6vw, 2.25rem);
+}
+
+/* Desktop: the duplicate set exists only for the mobile marquee loop,
+   so hide it when there's no marquee. Scoped selector beats the base
+   `.hero-partner { display: inline-flex }` rule that's declared later
+   in the file. */
+@media (min-width: 640px) {
+  .hero-partners-track > .hero-partner--dupe {
+    display: none;
+  }
+}
+
+/* Mobile: infinite auto-scrolling marquee. The PARTNERS list is rendered
+   twice (original + aria-hidden duplicate); a linear translateX(-50%)
+   loop cycles one set past the other so the seam is imperceptible. Edge
+   fade via mask so logos appear to enter/exit softly rather than clip. */
+@media (max-width: 639px) {
+  .hero-partners-row {
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+  }
+
+  .hero-partners-track {
+    flex-wrap: nowrap;
+    gap: 0;
+    width: max-content;
+    animation: hero-partners-scroll 50s linear infinite;
+  }
+
+  .hero-partners-track > .hero-partner {
+    margin-right: 2.5rem;
+  }
+
+  /* Pause on hover so a curious user can actually click a logo. */
+  .hero-partners-row:hover .hero-partners-track,
+  .hero-partners-row:focus-within .hero-partners-track {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes hero-partners-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-partners-track {
+    animation: none !important;
+  }
 }
 
 .hero-partner {
@@ -1386,10 +1438,10 @@ nav {
    coherent. Opacity drives the rest state; hover restores full intensity. */
 .hero-partner-logo {
   display: block;
-  /* Lock the height so all three logos share a baseline; width scales by
-     each SVG's natural aspect ratio. Avoid letting intrinsic SVG width
-     blow the layout up (the Bybit SVG is natively ~13547 units wide). */
-  height: 18px;
+  /* Lock the height so all logos share a baseline; width scales by each
+     SVG's natural aspect ratio. Height set to fit 5 partners + generous
+     gap within the hero-left column at 1280px viewport. */
+  height: 16px;
   width: auto;
   max-width: 120px;
   filter: brightness(0) invert(1);
@@ -2765,50 +2817,31 @@ nav {
 /* ═══════════════════════════════════════════
    GUARANTEE STRIP
    ═══════════════════════════════════════════ */
-.guarantee {
-  text-align: center;
-  padding: clamp(3rem, 5vw, 4rem) 0;
-  border-top: 1px solid var(--white-06);
-}
-
-.guarantee-badge {
-  display: inline-flex;
+/* Single-line guarantee directly under the pricing grid. Tight spacing
+   so it reads as part of the pricing block, not as a separate section. */
+.pricing-guarantee {
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.6rem;
-  padding: 0.55rem 1.2rem;
-  border: 1px solid var(--border);
-  border-radius: 50px;
-  margin-bottom: 1.2rem;
-  transition: border-color 0.3s var(--ease);
+  margin-top: clamp(1.5rem, 2.5vw, 2.25rem);
 }
 
-.guarantee-badge:hover {
-  border-color: var(--border-hover);
-}
-
-.guarantee-badge svg {
+.pricing-guarantee-icon {
   width: 16px;
   height: 16px;
   stroke: var(--text-blue);
   fill: none;
-  stroke-width: 1.5;
+  stroke-width: 1.6;
+  flex-shrink: 0;
 }
 
-.guarantee-badge span {
+.pricing-guarantee span {
   font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--white-60);
-}
-
-.guarantee-text {
-  font-size: 0.95rem;
+  font-size: 0.78rem;
   font-weight: 300;
+  letter-spacing: 0.08em;
   color: var(--white-60);
-  max-width: 54ch;
-  margin: 0 auto;
-  line-height: 1.7;
 }
 
 /* ═══════════════════════════════════════════
@@ -4738,9 +4771,11 @@ nav.nav-scrolled {
     opacity: 0;
   }
 
-  /* Testimonial thumb overlay and play-button grow */
+  /* Testimonial play-button: reset the hover scale but keep the
+     `translate(-50%, -50%)` that centers the button over the thumb.
+     `transform: none` here would collapse the button to the top-left. */
   .tm-card:hover .tm-play {
-    transform: none;
+    transform: translate(-50%, -50%);
   }
 
   /* YouTube card play overlay */
