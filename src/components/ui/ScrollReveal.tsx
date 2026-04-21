@@ -19,6 +19,13 @@ export default function ScrollReveal({
     const el = ref.current;
     if (!el) return;
 
+    // Users who prefer reduced motion should see the content immediately,
+    // not wait for a scroll-driven fade.
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      el.classList.add("visible");
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -27,7 +34,10 @@ export default function ScrollReveal({
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      // Fire the moment a section enters the viewport — looser threshold,
+      // deeper rootMargin so long sections don't reveal after the user has
+      // already scrolled past the fold.
+      { threshold: 0.05, rootMargin: "0px 0px -80px 0px" }
     );
 
     observer.observe(el);

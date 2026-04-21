@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import ScrollReveal from '../ui/ScrollReveal';
 
 interface Testimonial {
@@ -9,6 +10,11 @@ interface Testimonial {
   name: string;
   location: string;
   role: string;
+}
+
+// YouTube video IDs are exactly 11 chars of [A-Za-z0-9_-]. Guard against placeholders.
+function isRealVideo(id: string): boolean {
+  return /^[A-Za-z0-9_-]{11}$/.test(id);
 }
 
 // Placeholder testimonials — replace videoIds and quotes with real ones
@@ -63,9 +69,14 @@ export default function Testimonials() {
   }, [getVisible]);
 
   useEffect(() => {
-    updatePages();
+    // Initial sync happens in the resize handler on first mount via a queued frame,
+    // which lets React finish its initial render before we sync external (window) state.
+    const frame = requestAnimationFrame(updatePages);
     window.addEventListener('resize', updatePages);
-    return () => window.removeEventListener('resize', updatePages);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('resize', updatePages);
+    };
   }, [updatePages]);
 
   useEffect(() => {
@@ -79,13 +90,10 @@ export default function Testimonials() {
   }, [page, getVisible]);
 
   return (
-    <section className="section bg-card">
+    <section className="section bg-card" id="testimonials">
       <div className="container">
         <ScrollReveal className="section-header">
-          <span className="section-tag">From Our Members</span>
-          <h2 className="section-title">
-            The room changes how you invest.
-          </h2>
+          <span className="section-tag">From Our Private Members</span>
         </ScrollReveal>
 
         <ScrollReveal>
@@ -104,24 +112,35 @@ export default function Testimonials() {
                           src={`https://www.youtube.com/embed/${t.videoId}?autoplay=1&rel=0`}
                           allow="autoplay; encrypted-media"
                           allowFullScreen
+                          title={`Testimonial from ${t.name}, ${t.location}`}
                           className="tm-iframe"
                         />
                       ) : (
-                        <div
+                        <button
+                          type="button"
                           className="tm-thumb"
-                          onClick={() => setPlayingId(t.videoId)}
+                          onClick={() => isRealVideo(t.videoId) && setPlayingId(t.videoId)}
+                          disabled={!isRealVideo(t.videoId)}
+                          aria-label={`Play testimonial from ${t.name}, ${t.location}`}
                         >
-                          <img
-                            src={`https://img.youtube.com/vi/${t.videoId}/hqdefault.jpg`}
-                            alt={`${t.name} testimonial`}
-                            loading="lazy"
-                          />
-                          <div className="tm-play">
+                          {isRealVideo(t.videoId) ? (
+                            <Image
+                              src={`https://img.youtube.com/vi/${t.videoId}/hqdefault.jpg`}
+                              alt=""
+                              width={480}
+                              height={360}
+                              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            />
+                          ) : (
+                            <div className="tm-thumb-placeholder" aria-hidden="true" />
+                          )}
+                          <span className="tm-play" aria-hidden="true">
                             <svg viewBox="0 0 24 24" width="28" height="28">
                               <polygon points="8,5 20,12 8,19" fill="currentColor" />
                             </svg>
-                          </div>
-                        </div>
+                          </span>
+                        </button>
                       )}
                     </div>
                     <div className="tm-content">

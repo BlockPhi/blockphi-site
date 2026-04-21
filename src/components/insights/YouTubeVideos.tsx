@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef, useCallback } from 'react';
+import Image from 'next/image';
 
 interface Video {
   id: string;
@@ -15,6 +16,7 @@ const PLAYLIST_ID = 'PLK1cGopRxJXzvyPcWczdxB3L0SFbcb_uj';
 export default function YouTubeVideos() {
   const [videos, setVideos] = useState<Video[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -51,13 +53,20 @@ export default function YouTubeVideos() {
         setVideos(items);
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch(() => {
+        setError(true);
+        setLoading(false);
+      });
   }, []);
 
   useEffect(() => {
-    updatePages();
+    // Defer initial sync until after paint so setState doesn't run inside the effect body.
+    const frame = requestAnimationFrame(updatePages);
     window.addEventListener('resize', updatePages);
-    return () => window.removeEventListener('resize', updatePages);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('resize', updatePages);
+    };
   }, [updatePages]);
 
   useEffect(() => {
@@ -71,10 +80,27 @@ export default function YouTubeVideos() {
   }, [page, getVisible, videos]);
 
   if (loading) {
-    return <div className="yt-loading">Loading videos...</div>;
+    return (
+      <div className="yt-loading" role="status" aria-live="polite">
+        Loading videos…
+      </div>
+    );
   }
 
-  if (videos.length === 0) return null;
+  if (error || videos.length === 0) {
+    return (
+      <div className="yt-loading" role="status">
+        Videos are temporarily unavailable.{' '}
+        <a
+          href={`https://www.youtube.com/playlist?list=${PLAYLIST_ID}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Watch on YouTube &rsaquo;
+        </a>
+      </div>
+    );
+  }
 
   return (
     <div className="yt-widget">
@@ -90,10 +116,13 @@ export default function YouTubeVideos() {
               style={{ '--index': i } as React.CSSProperties}
             >
               <div className="yt-thumb">
-                <img
+                <Image
                   src={video.thumbnail}
                   alt={video.title}
-                  loading="lazy"
+                  width={480}
+                  height={360}
+                  sizes="(max-width: 640px) 50vw, (max-width: 960px) 33vw, 20vw"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
                 <div className="yt-play">
                   <svg viewBox="0 0 24 24" width="22" height="22">

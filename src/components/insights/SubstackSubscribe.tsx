@@ -54,9 +54,15 @@ export default function SubstackSubscribe() {
         disabled={status === 'sending'}
         className="subscribe-input"
         aria-label="Email address"
+        autoComplete="email"
       />
-      <button type="submit" className="subscribe-btn" disabled={status === 'sending'}>
-        {status === 'sending' ? '...' : status === 'done' ? 'Subscribed' : 'Subscribe'}
+      <button
+        type="submit"
+        className="subscribe-btn"
+        disabled={status === 'sending'}
+        aria-busy={status === 'sending'}
+      >
+        {status === 'sending' ? '…' : status === 'done' ? 'Subscribed' : 'Subscribe'}
       </button>
     </form>
   );

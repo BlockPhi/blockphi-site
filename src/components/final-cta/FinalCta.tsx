@@ -1,25 +1,26 @@
-import { DiscordIcon } from "../ui/Icons";
 import ScrollReveal from "../ui/ScrollReveal";
+import { APPLY_URL } from "@/lib/links";
 
 export default function FinalCta() {
   return (
     <section className="final-cta bg-base">
       <ScrollReveal className="container">
         <h2 className="final-cta-title">
-          You&apos;ve been doing this
+          Data-driven allocation.
           <br />
-          alone long enough.
+          Invitation only.
         </h2>
         <p className="final-cta-sub">
-          Step into a room of serious investors. Get the structure. Get the
-          clarity.
+          Proprietary crypto and macro frameworks.
+          <br />
+          A curated investor circle.
         </p>
         <a
-          href="#"
-          className="btn-primary"
-          style={{ fontSize: "0.85rem", padding: "0.85rem 2.4rem" }}
+          href={APPLY_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-primary final-cta-btn"
         >
-          <DiscordIcon />
           Apply to Join
         </a>
       </ScrollReveal>

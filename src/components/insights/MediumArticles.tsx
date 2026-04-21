@@ -25,7 +25,7 @@ export default function MediumArticles() {
         ref={iframeRef}
         src="https://medium-widget.vercel.app/"
         className="mw-iframe"
-        title="BlockPhi Capital — Latest Research Articles"
+        title="BlockPhi | Latest Research Articles"
         loading="lazy"
       />
     </div>

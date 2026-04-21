@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ScrollReveal from "../ui/ScrollReveal";
+import SectionTitle from "../ui/SectionTitle";
 
 const models = [
   { name: "AGGRESSIVE_01", asset: "Digital Assets", weight: "65.40%", visual: "bars" },
@@ -48,9 +49,11 @@ export default function Pillars() {
       <div className="container">
         <ScrollReveal className="section-header">
           <span className="section-tag">What You Get</span>
-          <h2 className="section-title">Two pillars. One edge.</h2>
+          <SectionTitle>Two pillars. One edge.</SectionTitle>
           <p className="section-sub">
             BlockPhi is your all-in-one framework for wealth management across crypto and global markets.
+            <br />
+            Built for investors who think in years, not candles. Quantitative macro analytics and a curated peer circle.
           </p>
         </ScrollReveal>
 
@@ -71,13 +74,17 @@ export default function Pillars() {
             </div>
             <h3>Proprietary Analytics</h3>
             <p>
-              Our internal models leverage on-chain metrics and macroeconomic
-              liquidity cycles to identify asymmetric entries before the retail
-              consensus.
+              Our frameworks combine on-chain metrics with macro liquidity
+              cycles to identify asymmetric entries ahead of consensus.
+              Frameworks you can apply to your portfolio today.
             </p>
           </div>
 
           <div className="pillar pillar--models">
+            <div className="models-caption">
+              <span className="models-caption-tag">Sample allocation frameworks</span>
+              <span className="models-caption-note">Illustrative. Each model is a standalone strategy, not a single combined portfolio.</span>
+            </div>
             <div className="models-grid">
               {models.map((m) => (
                 <div key={m.name} className="model-card">
@@ -122,7 +129,7 @@ export default function Pillars() {
             <div className="models-pulse">
               <div className="models-pulse-left">
                 <span className="models-pulse-label">Current Market Pulse</span>
-                <span className="models-pulse-desc">Real-time data stream processed via proprietary neural nodes.</span>
+                <span className="models-pulse-desc">Figures refresh with live market data.</span>
               </div>
               <div className="models-pulse-right">
                 <div className="models-pulse-stat">
@@ -163,8 +170,8 @@ export default function Pillars() {
             </div>
             <h3>Curated Investor Circle</h3>
             <p>
-              An invitation-only environment of high-net-worth individuals and
-              institutional players sharing high-conviction thesis reports.
+              An invitation-only circle of high-net-worth individuals and
+              institutions sharing high-conviction thesis reports.
             </p>
 
             {/* Noise-to-signal funnel visual */}
@@ -181,13 +188,20 @@ export default function Pillars() {
                 ))}
               </div>
 
-              <svg className="funnel-lines" viewBox="0 0 200 200" fill="none" preserveAspectRatio="none">
-                <path d="M30 25 L100 100" stroke="rgba(74,142,201,0.2)" strokeWidth="0.75" strokeDasharray="3 4" />
-                <path d="M170 20 L100 100" stroke="rgba(74,142,201,0.2)" strokeWidth="0.75" strokeDasharray="3 4" />
-                <path d="M15 90 L100 100" stroke="rgba(74,142,201,0.18)" strokeWidth="0.75" strokeDasharray="3 4" />
-                <path d="M185 85 L100 100" stroke="rgba(74,142,201,0.18)" strokeWidth="0.75" strokeDasharray="3 4" />
-                <path d="M50 170 L100 100" stroke="rgba(74,142,201,0.2)" strokeWidth="0.75" strokeDasharray="3 4" />
-                <path d="M155 165 L100 100" stroke="rgba(74,142,201,0.2)" strokeWidth="0.75" strokeDasharray="3 4" />
+              <svg
+                className="funnel-lines"
+                viewBox="0 0 200 200"
+                fill="none"
+                preserveAspectRatio="none"
+                role="img"
+                aria-label="Diagram: six external information sources converging into a single signal at the center."
+              >
+                <path d="M30 25 L100 100" stroke="currentColor" strokeWidth="0.75" strokeDasharray="3 4" />
+                <path d="M170 20 L100 100" stroke="currentColor" strokeWidth="0.75" strokeDasharray="3 4" />
+                <path d="M15 90 L100 100" stroke="currentColor" strokeWidth="0.75" strokeDasharray="3 4" opacity="0.9" />
+                <path d="M185 85 L100 100" stroke="currentColor" strokeWidth="0.75" strokeDasharray="3 4" opacity="0.9" />
+                <path d="M50 170 L100 100" stroke="currentColor" strokeWidth="0.75" strokeDasharray="3 4" />
+                <path d="M155 165 L100 100" stroke="currentColor" strokeWidth="0.75" strokeDasharray="3 4" />
               </svg>
 
               <div className="funnel-center">
@@ -201,7 +215,7 @@ export default function Pillars() {
               </div>
             </div>
             <p className="funnel-caption">
-              47 tabs. 12 groups. Endless noise.<br />
+              Many sources.<br />
               <span>One signal.</span>
             </p>
           </div>
