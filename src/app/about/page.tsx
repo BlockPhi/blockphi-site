@@ -96,7 +96,7 @@ const INDEPENDENT_ANALYSTS: Analyst[] = [
   {
     name: "denome",
     role: "Geopolitics & Markets Analyst",
-    photo: "/images/Denome.jpg",
+    photo: "/images/denome.jpg",
     photoAlt: "denome",
     socials: [
       { type: "x", href: "https://x.com/denomeme" },

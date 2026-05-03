@@ -93,7 +93,7 @@ const CHARTS: Chart[] = [
   // ── LEAD-LAG ──
   {
     id: 1,
-    src: '/images/Charts V2/GLI(+W) & BTC 6W Changes.png',
+    src: '/images/Charts V2/GLI-W-BTC-6W-Changes.png',
     title: 'GLI vs BTC Rate-of-Change',
     caption: 'GLI 11W-lagged rate-of-change overlaid with BTC 6W rate-of-change. Colour codes whether GLI is expanding (green) or contracting (red). The synchrony confirms the lead operates at the rate level, not just the price level.',
     category: 'LEAD_LAG',
