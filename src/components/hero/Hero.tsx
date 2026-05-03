@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ANALYTICS_URL, APPLY_URL } from "@/lib/links";
 import HeroSpotlight from "./HeroSpotlight";
 import HeroScrollFade from "./HeroScrollFade";
@@ -38,7 +39,7 @@ export default function Hero() {
             <span className="h1-word" style={{ animationDelay: "2.18s" }}>Conviction.</span>
           </h1>
           <p className="hero-sub">
-            Proprietary crypto and macro frameworks that turn data into
+            Quantitative crypto and macro frameworks that turn data into
             actionable investment decisions, exclusive to our select investor
             community.
           </p>
@@ -121,6 +122,12 @@ export default function Hero() {
               </button>
             </div>
           </div>
+          <div className="vsl-meta-row">
+            <blockquote className="vsl-quote">
+              &ldquo;I&rsquo;ve built this to be the only resource you need.&rdquo;
+              <cite className="vsl-quote-attr">&ndash; Jack Green</cite>
+            </blockquote>
+          </div>
         </div>
       </div>
 
@@ -132,7 +139,7 @@ export default function Hero() {
         <div className="hero-stats">
           <span className="stat">Est. 2017</span>
           <span className="stat-sep" aria-hidden="true" />
-          <span className="stat" aria-live="polite"><CountUp to={10} startDelay={1000} duration={1200} />+ Analysts</span>
+          <Link href="/about#analysts" className="stat stat-link" aria-live="polite"><CountUp to={10} startDelay={1000} duration={1200} />+ Analysts</Link>
         </div>
       </div>
     </section>

@@ -95,6 +95,8 @@ export default function Nav() {
             </svg>
           </Link>
           <div className="nav-dropdown-menu">
+            <Link href="/about#team">Team</Link>
+            <Link href="/about#analysts">Analysts</Link>
             <Link href="/about#contact">Contact</Link>
           </div>
         </div>
@@ -136,6 +138,12 @@ export default function Nav() {
         </Link>
         <Link href="/about" onClick={closeMenu} aria-current={ariaCurrent("/about")}>
           About
+        </Link>
+        <Link href="/about#team" onClick={closeMenu}>
+          Team
+        </Link>
+        <Link href="/about#analysts" onClick={closeMenu}>
+          Analysts
         </Link>
         <Link href="/about#contact" onClick={closeMenu}>
           Contact

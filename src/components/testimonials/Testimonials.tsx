@@ -47,6 +47,13 @@ const testimonials: Testimonial[] = [
     location: 'New York, US',
     role: 'Portfolio above $500k',
   },
+  {
+    videoId: 'PLACEHOLDER_5',
+    quote: "The community alone is worth every dollar. Nothing else I've subscribed to comes close.",
+    name: 'Private Member',
+    location: 'Inner Circle',
+    role: 'Joined 2024',
+  },
 ];
 
 export default function Testimonials() {

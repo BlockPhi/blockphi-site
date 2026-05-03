@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <style>
+      .chart-line {
+        fill: none; stroke: #4A8EC9;
+        stroke-width: 1.1; stroke-opacity: 0.42;
+      }
+      .chart-axis {
+        fill: none; stroke: #4A8EC9;
+        stroke-width: 0.8; stroke-opacity: 0.30;
+        stroke-dasharray: 3 5;
+      }
+      .chart-tick {
+        fill: none; stroke: #4A8EC9;
+        stroke-width: 1.0; stroke-opacity: 0.45;
+      }
+      .chart-tick-label {
+        font-family: 'JetBrains Mono','JetBrains Mono Variable',ui-monospace,'SF Mono',Consolas,'Roboto Mono',monospace;
+        font-size: 18px; font-weight: 300;
+        letter-spacing: 0.04em;
+        fill: #4A8EC9; fill-opacity: 0.32;
+      }
+      .chart-caption {
+        font-family: 'JetBrains Mono','JetBrains Mono Variable',ui-monospace,'SF Mono',Consolas,'Roboto Mono',monospace;
+        font-size: 22px; font-weight: 300;
+        letter-spacing: 0.06em;
+        font-style: italic;
+        fill: #4A8EC9; fill-opacity: 0.34;
+      }
+      .phi-const {
+        font-family: 'JetBrains Mono','JetBrains Mono Variable',ui-monospace,'SF Mono',Consolas,'Roboto Mono',monospace;
+        font-size: 60px; font-weight: 300;
+        letter-spacing: 0.02em;
+        fill: #4A8EC9; fill-opacity: 0.32;
+      }
+      .fib-seq {
+        font-family: 'JetBrains Mono','JetBrains Mono Variable',ui-monospace,'SF Mono',Consolas,'Roboto Mono',monospace;
+        font-size: 38px; font-weight: 300;
+        letter-spacing: 0.08em;
+        fill: #4A8EC9;
+      }
+    </style>
+  </defs>
+  <line x1="1470" y1="457.47" x2="1880" y2="457.47" class="chart-axis"/>
+  <line x1="1676.67" y1="130" x2="1676.67" y2="605" class="chart-axis"/>
+  <line x1="1738.47" y1="451.47" x2="1738.47" y2="463.47" class="chart-tick"/>
+  <line x1="1776.67" y1="451.47" x2="1776.67" y2="463.47" class="chart-tick"/>
+  <line x1="1838.47" y1="451.47" x2="1838.47" y2="463.47" class="chart-tick"/>
+  <text class="chart-tick-label" x="1738.47" y="483.47" text-anchor="middle">1/φ</text>
+  <text class="chart-tick-label" x="1776.67" y="483.47" text-anchor="middle">1</text>
+  <text class="chart-tick-label" x="1838.47" y="483.47" text-anchor="middle">φ</text>
+  <line x1="1670.67" y1="395.67" x2="1682.67" y2="395.67" class="chart-tick"/>
+  <line x1="1670.67" y1="357.47" x2="1682.67" y2="357.47" class="chart-tick"/>
+  <line x1="1670.67" y1="295.67" x2="1682.67" y2="295.67" class="chart-tick"/>
+  <text class="chart-tick-label" x="1662.67" y="401.67" text-anchor="end">1/φ</text>
+  <text class="chart-tick-label" x="1662.67" y="363.47" text-anchor="end">1</text>
+  <text class="chart-tick-label" x="1662.67" y="301.67" text-anchor="end">φ</text>
+  <g transform="translate(805.55 28.00) scale(0.65)">
+    <path d="M 326.606 900.000 A 820.000 820.000 0 0 1 1146.606 80.000 A 506.788 506.788 0 0 1 1653.394 586.788 A 313.212 313.212 0 0 1 1340.182 900.000 A 193.576 193.576 0 0 1 1146.606 706.424 A 119.636 119.636 0 0 1 1266.242 586.788 A 73.939 73.939 0 0 1 1340.182 660.727" class="chart-line"/>
+  </g>
+  <text class="chart-caption" x="1880" y="640" text-anchor="end">Fig. 1 — φⁿ = φⁿ⁻¹ + φⁿ⁻² ∙ logarithmic spiral (a = 1, b = ln(φ)/(π/2))</text>
+  <text class="phi-const" x="1880" y="780" text-anchor="end">φ = 1.6180339887498948...</text>
+  <text class="fib-seq" x="1880" y="860" text-anchor="end" fill-opacity="0.2">1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610</text>
+  <text class="fib-seq" x="1880" y="902" text-anchor="end" fill-opacity="0.14">987, 1597, 2584, 4181, 6765, 10946, 17711, 28657</text>
+  <text class="fib-seq" x="1880" y="944" text-anchor="end" fill-opacity="0.1">46368, 75025, 121393, 196418, 317811, 514229</text>
+  <text class="fib-seq" x="1880" y="986" text-anchor="end" fill-opacity="0.07">832040, 1346269, 2178309, 3524578, 5702887</text>
+  <text class="fib-seq" x="1880" y="1028" text-anchor="end" fill-opacity="0.04">9227465, 14930352, 24157817, 39088169, 63245986</text>
+</svg>

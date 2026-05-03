@@ -237,14 +237,16 @@ summary {
    decorative — selecting it on tap-and-hold looks accidental. Body
    copy is still selectable. */
 .section-tag,
-.model-label,
 .tier-badge,
 .tier-cap,
 .stat-sep,
 .hero-eyebrow-sep,
 .scroll-text,
 .about-coverage-num,
-.models-pulse-label,
+.analytics-tab,
+.analytics-tab-counter,
+.analytics-display-overlay,
+.analytics-metric-key,
 .funnel-caption,
 .hero-partners-label {
   user-select: none;
@@ -255,7 +257,6 @@ summary {
    near them. The intrinsic-size hints avoid scroll-anchor weirdness by
    reserving approximate space. Pages that link directly to #pricing
    or #testimonials still work because scroll-margin-top is separate. */
-.pillar--models,
 #testimonials,
 #pricing,
 .insights-section,
@@ -444,9 +445,9 @@ summary {
 .tier-period,
 .tier-cap,
 .tier-badge,
-.models-pulse-num,
-.model-meta-value,
-.model-name,
+.analytics-metric-num,
+.analytics-tab-counter,
+.analytics-chip-num,
 .about-coverage-num,
 .notfound-code,
 .legal-meta {
@@ -1208,17 +1209,20 @@ nav {
   align-items: flex-end;
   justify-content: space-between;
   gap: clamp(1rem, 2vw, 2rem);
-  margin-top: clamp(1.5rem, 2.2vw, 2rem);
+  margin-top: clamp(0.6rem, 1vw, 1rem);
   flex-wrap: wrap;
+  /* hero-right uses align-items: flex-end (column), so children size to
+     content by default. Stretch this row so the quote spans full width and
+     fits on a single line. */
+  align-self: stretch;
 }
 
 .vsl-quote {
   margin: 0;
-  /* Left-align in the row; share the width with the proof chip on the right.
-     Wraps gracefully to 2 lines when the chip takes its share. */
-  flex: 1 1 260px;
-  max-width: 48ch;
-  text-align: left;
+  /* Span the full meta-row width and right-align the text so "Jack Green"
+     finishes flush with the right edge of the VSL above. */
+  flex: 1 1 100%;
+  text-align: right;
   font-family: var(--heading);
   font-style: italic;
   font-weight: 300;
@@ -1647,6 +1651,18 @@ nav {
   user-select: none;
 }
 
+.stat-link {
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+
+.stat-link:hover,
+.stat-link:focus-visible {
+  border-bottom-color: var(--white-40);
+  color: var(--white);
+}
+
 /* ═══════════════════════════════════════════
    DIVIDER — atmospheric gradient
    ═══════════════════════════════════════════ */
@@ -1740,8 +1756,8 @@ nav {
 /* Pillars layout — two-row grid */
 .pillars-layout {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: auto auto;
+  grid-template-columns: 1.7fr 1fr;
+  align-items: stretch;
   gap: clamp(0.8rem, 1.5vw, 1.2rem);
 }
 
@@ -1753,6 +1769,8 @@ nav {
   position: relative;
   transition: all 0.4s var(--ease);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Ambient glow on hover — very subtle, no neon */
@@ -1766,12 +1784,6 @@ nav {
   .pillar:hover {
     transform: none;
   }
-}
-
-/* Primary needs specific overrides since it connects to models */
-.pillar.pillar--primary:hover {
-  border-left-color: var(--navy);
-  border-bottom-color: transparent;
 }
 
 .pillar::before {
@@ -1802,53 +1814,46 @@ nav {
   pointer-events: none;
 }
 
-/* Primary pillar — top-left, connected to models below */
-.pillar--primary {
+/* Left pillar — single tall card. Order top-to-bottom:
+   header (icon + title + description) → analytics pane → footer. */
+.pillar--analytics {
   grid-column: 1;
-  grid-row: 1;
   border-left: 2px solid var(--navy);
-  border-bottom: none;
-  border-radius: 8px 8px 0 0;
-  margin-bottom: 0;
+  padding: 0;
 }
 
-/* Unified hover: primary + models highlight together */
-.pillar--primary:hover {
-  border-color: var(--white-12);
-  border-left-color: var(--navy);
-  border-bottom-color: transparent;
+/* Top header — compact label-as-heading. Smaller than the right
+   pillar's h3 on purpose: this is an intro to the chart pane below,
+   not a major heading competing with the chart for attention. */
+.pillar-header {
+  padding: clamp(1.4rem, 2vw, 1.8rem) clamp(1.5rem, 2.5vw, 2rem) clamp(1.1rem, 1.6vw, 1.4rem);
 }
 
-.pillar--primary:hover + .pillar--models {
-  border-color: var(--white-12);
-  border-left-color: var(--navy);
-  border-top-color: transparent;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+.pillar--analytics .pillar-header h3 {
+  font-size: 1.15rem;
+  font-weight: 400;
+  margin-bottom: 0.45rem;
+  line-height: 1.3;
 }
 
-/* Reverse: hovering models also highlights primary */
-.pillars-layout:has(.pillar--models:hover) .pillar--primary {
-  border-color: var(--white-12);
-  border-left-color: var(--navy);
-  border-bottom-color: transparent;
-  box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.2);
+/* Description fills the full pillar width so it lands in ~2 lines
+   instead of wrapping early. `max-width: none` is needed to defeat the
+   inherited 50ch cap on `.pillar p`. */
+.pillar--analytics .pillar-header p {
+  font-size: 0.78rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--white-40);
+  margin: 0;
+  max-width: none;
 }
 
-.pillar--primary h3 {
-  font-size: 1.4rem;
-}
-
-/* Secondary pillar — right column, spans both rows as one unified card */
+/* Secondary pillar — right column */
 .pillar--secondary {
   grid-column: 2;
-  grid-row: 1 / 3;
   align-self: stretch;
   display: flex;
   flex-direction: column;
-}
-
-.pillar--secondary .pillar-icon {
-  margin-bottom: 1rem;
 }
 
 .pillar--secondary p:not(.funnel-caption) {
@@ -1889,29 +1894,372 @@ nav {
   color: var(--white-25);
 }
 
-/* Models bar — under primary, visually connected as one unit */
-.pillar--models {
-  grid-column: 1;
-  grid-row: 2;
-  padding: 0;
-  border-left: 2px solid var(--navy);
-  border-top: none;
-  border-radius: 0 0 8px 8px;
-  margin-top: calc(-1 * clamp(0.8rem, 1.5vw, 1.2rem));
-  transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+/* ── Analytics Pane (left pillar visual block) ──
+   Sits in the middle of the card between header and footer; bordered
+   top + bottom, no rounding. Behaves like a Bloomberg sub-pane. */
+.analytics-pane {
+  display: flex;
+  flex-direction: column;
+  background: var(--black);
+  border-top: 1px solid var(--white-06);
+  border-bottom: 1px solid var(--white-06);
+  position: relative;
 }
 
-/* Models hover — unified with primary above */
-.pillar--models:hover {
+.analytics-tabs {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  padding: 0 clamp(0.6rem, 1.6vw, 1.2rem);
+  border-bottom: 1px solid var(--white-06);
+  position: relative;
+  background-image:
+    linear-gradient(rgba(252, 252, 252, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(252, 252, 252, 0.015) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.analytics-tab {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: var(--white-25);
+  background: transparent;
+  border: none;
+  padding: 0.85rem 0.95rem;
+  cursor: pointer;
+  transition: color 0.3s var(--ease);
+  position: relative;
+  white-space: nowrap;
+}
+
+.analytics-tab:hover {
+  color: var(--white-60);
+}
+
+.analytics-tab--active {
+  color: var(--text-blue);
+}
+
+.analytics-tab--active::after {
+  content: '';
+  position: absolute;
+  left: 0.95rem;
+  right: 0.95rem;
+  bottom: -1px;
+  height: 1px;
+  background: var(--navy);
+  transition: background 0.3s var(--ease);
+}
+
+.analytics-tab:focus-visible {
+  outline: 1px solid var(--navy-bright);
+  outline-offset: -3px;
+  border-radius: 3px;
+}
+
+.analytics-tab-counter {
+  margin-left: auto;
+  align-self: center;
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.18em;
+  color: var(--white-25);
+  padding: 0 0.4rem;
+}
+
+/* Display area — the actual chart image. 2:1 aspect matches the
+   widescreen-bias of most charts in the set (BTCUSD-invDXY, GLI z-score,
+   regime bands) without making the square charts look stranded.
+
+   Background is `#111111` to match the source PNGs' chart-card colour
+   exactly. Without this the boundary between the analytics-display
+   (#0a0a0a) and the chart card (#111111) creates a 7-level contrast
+   edge that anti-aliases into a soft, perceptually-rounded transition
+   at the corners — visible to the eye even after the rounded outer
+   ring is clipped. Matching the colours makes the boundary disappear
+   and the clipped chart blend seamlessly with the surrounding pane. */
+.analytics-display {
+  position: relative;
+  background-color: #111111;
+  aspect-ratio: 2 / 1;
+  overflow: hidden;
+}
+
+/* Ping-pong slots — both <Image> elements stay mounted; opacity is
+   driven inline. CSS only animates the opacity transition.
+
+   Symmetric ease-in-out (0.65,0,0.35,1) — for an opacity-only
+   crossfade this reads smoother than the project's default
+   fast-out-slow-in, which makes the new chart snap into view too
+   quickly.
+
+   Edge clipping is per-chart (inline `clip-path`) because chart
+   aspects vary — a uniform CSS scale or inset only clips the img
+   element's letterbox on non-2:1 charts, leaving the rounded ring
+   inside the chart visible. See AnalyticsPane.tsx clipForAspect(). */
+.analytics-chart {
+  object-fit: contain;
+  transition: opacity 800ms cubic-bezier(0.65, 0, 0.35, 1);
+  will-change: opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .analytics-chart {
+    transition: none;
+  }
+}
+
+.analytics-display-overlay {
+  position: absolute;
+  left: clamp(0.7rem, 1.4vw, 1rem);
+  bottom: clamp(0.5rem, 1vw, 0.7rem);
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  pointer-events: none;
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--white-40);
+  background: rgba(10, 10, 10, 0.55);
+  border: 1px solid var(--white-06);
+  border-radius: 3px;
+  padding: 0.3rem 0.55rem;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.analytics-display-title {
+  color: var(--text-blue);
+  letter-spacing: 0.12em;
+}
+
+/* Auto-rotation progress line — thin, text-blue, sits at the bottom
+   edge of the chart display. Width is driven directly by RAF via
+   inline transform (no CSS transition on transform). Opacity transitions
+   on data-state so the line fades cleanly out during a crossfade and
+   fades back in when the next chart settles. */
+.analytics-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--text-blue);
+  transform: scaleX(0);
+  transform-origin: left center;
+  pointer-events: none;
+  opacity: 0.85;
+  transition: opacity 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.analytics-progress[data-state="hidden"] {
+  opacity: 0;
+}
+
+/* Chip strip beneath the chart */
+.analytics-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  padding: 0.7rem clamp(0.8rem, 1.6vw, 1.2rem);
+  border-top: 1px solid var(--white-06);
+  background: rgba(252, 252, 252, 0.015);
+}
+
+.analytics-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  padding: 0.42rem 0.72rem;
+  background: transparent;
+  border: 1px solid var(--white-06);
+  border-radius: 3px;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  color: var(--white-40);
+  cursor: pointer;
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease), background 0.3s var(--ease);
+  white-space: nowrap;
+}
+
+.analytics-chip:hover {
   border-color: var(--white-12);
-  border-left-color: var(--navy);
-  border-top-color: transparent;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+  color: var(--white-60);
 }
 
-.pillar--models::before,
-.pillar--models::after {
-  display: none;
+.analytics-chip--active {
+  background: rgba(0, 31, 63, 0.18);
+  border-color: var(--navy);
+  color: var(--white);
+}
+
+.analytics-chip-num {
+  font-size: 0.5rem;
+  letter-spacing: 0.14em;
+  color: var(--text-blue);
+}
+
+.analytics-chip--active .analytics-chip-num {
+  color: var(--text-blue);
+}
+
+.analytics-chip-title {
+  font-weight: 400;
+}
+
+.analytics-chip:focus-visible {
+  outline: 1px solid var(--navy-bright);
+  outline-offset: 1px;
+}
+
+/* Active chart caption — sits between chip strip and the divider.
+   Caption is keyed to the visible chart (front) so it remounts and
+   fades in synchronously with the crossfade landing.
+
+   Fills the full pane width (no max-width) and is clamped to exactly
+   3 lines so the card height never shifts when chart captions vary in
+   length. min-height matches the 3-line clamped height: any caption
+   shorter than 3 lines reserves the same vertical space. */
+/* Selector is intentionally `.pillar .analytics-caption` (class+class)
+   so it outranks `.pillar p` (class+element); without that, the
+   inherited 50ch max-width cap from .pillar p wins on specificity. */
+.pillar .analytics-caption {
+  font-family: var(--body);
+  font-size: 0.78rem;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--white-40);
+  padding: 0.85rem clamp(1rem, 2vw, 1.4rem) 1rem;
+  margin: 0;
+  max-width: none;
+  border-top: 1px solid var(--white-06);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  /* 3 lines × 1.65 line-height × 0.78rem font + 0.85rem top + 1rem bottom */
+  min-height: calc(3 * 1.65 * 0.78rem + 0.85rem + 1rem);
+  animation: captionFadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes captionFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .analytics-caption {
+    animation: none;
+  }
+}
+
+/* Footer row — real metrics + terminal exit link.
+   No own border-top: the pane above already supplies the seam. */
+.analytics-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(0.95rem, 1.5vw, 1.2rem) clamp(1.5rem, 2.5vw, 2rem) clamp(1.2rem, 1.8vw, 1.5rem);
+  flex-wrap: wrap;
+}
+
+.analytics-metric-set {
+  display: flex;
+  gap: clamp(1.2rem, 2.4vw, 1.8rem);
+}
+
+.analytics-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+}
+
+.analytics-metric-num {
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  color: var(--white);
+}
+
+.analytics-metric-key {
+  font-family: var(--mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--white-25);
+}
+
+.analytics-terminal-link {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-blue);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  transition: color 0.3s var(--ease);
+}
+
+/* Pulsing dot beside the terminal link — signals that the metrics
+   above become live-updating once the analytics terminal is wired up.
+   Uses the brand's text-blue at low intensity so it reads as a status
+   indicator rather than a notification badge. */
+.analytics-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-blue);
+  box-shadow: 0 0 0 0 rgba(74, 142, 201, 0.45);
+  animation: live-dot-pulse 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  flex-shrink: 0;
+}
+
+@keyframes live-dot-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(74, 142, 201, 0.45);
+  }
+  50% {
+    opacity: 0.55;
+    box-shadow: 0 0 0 4px rgba(74, 142, 201, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .analytics-live-dot {
+    animation: none;
+  }
+}
+
+.analytics-terminal-link::after {
+  content: '→';
+  display: inline-block;
+  transition: transform 0.3s var(--ease);
+}
+
+.analytics-terminal-link:hover {
+  color: var(--white);
+}
+
+.analytics-terminal-link:hover::after {
+  transform: translateX(3px);
+}
+
+.analytics-terminal-link:focus-visible {
+  outline: 1px solid var(--navy-bright);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
 /* Funnel visual — inside secondary pillar */
@@ -1937,32 +2285,6 @@ nav {
   /* Tokenized stroke color — paths use currentColor so a single token
      drives all lines; opacity attr on individual paths for subtle weighting. */
   color: rgba(74, 142, 201, 0.22);
-}
-
-.models-caption {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: clamp(1rem, 2vw, 1.4rem) clamp(1.5rem, 2.5vw, 2rem) 0.6rem;
-  flex-wrap: wrap;
-}
-
-.models-caption-tag {
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-blue);
-}
-
-.models-caption-note {
-  font-family: var(--body);
-  font-size: 0.68rem;
-  font-weight: 300;
-  color: var(--white-25);
-  line-height: 1.5;
-  max-width: 42ch;
 }
 
 /* Scattered noise source icons */
@@ -2028,231 +2350,6 @@ nav {
 .funnel-caption span {
   color: var(--text-blue);
   font-weight: 500;
-}
-
-/* Visual placeholder area */
-.pillar-visual {
-  height: 120px;
-  margin: calc(-1 * clamp(1.5rem, 2.5vw, 2rem));
-  margin-bottom: clamp(1.2rem, 2vw, 1.5rem);
-  border-bottom: 1px solid var(--white-06);
-  background: var(--black);
-  position: relative;
-  overflow: hidden;
-}
-
-.pillar--primary .pillar-visual {
-  border-radius: 6px 6px 0 0;
-}
-
-/* Grid pattern + navy gradient accent */
-.pillar-visual::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(252, 252, 252, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(252, 252, 252, 0.02) 1px, transparent 1px);
-  background-size: 32px 32px;
-}
-
-.pillar-visual::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 70% 60%, rgba(0, 31, 63, 0.15), transparent 60%);
-  pointer-events: none;
-}
-
-/* ── Models Grid ── */
-.models-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border-bottom: 1px solid var(--white-06);
-}
-
-.model-card {
-  padding: 0;
-  border-right: 1px solid var(--white-06);
-}
-
-.model-card:last-child {
-  border-right: none;
-}
-
-.model-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 0.8rem;
-  border-bottom: 1px solid var(--white-06);
-}
-
-.model-label {
-  font-family: var(--mono);
-  font-size: 0.58rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--white-25);
-}
-
-.model-name {
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
-  color: var(--text-blue);
-}
-
-.model-visual {
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--black);
-  position: relative;
-  overflow: hidden;
-}
-
-.model-visual svg {
-  width: 80%;
-  height: 80%;
-  opacity: 0.8;
-}
-
-/* Bars grow from the baseline when the pillars section enters view.
-   transform-box: fill-box lets transform-origin apply per-rect inside
-   the SVG, which is what makes scaleY anchor to each bar's bottom. */
-.model-visual--bars rect {
-  transform: scaleY(0);
-  transform-origin: center bottom;
-  transform-box: fill-box;
-  transition: transform 0.9s var(--ease);
-}
-
-.visible .model-visual--bars rect:nth-child(1) { transition-delay: 0.1s; }
-.visible .model-visual--bars rect:nth-child(2) { transition-delay: 0.18s; }
-.visible .model-visual--bars rect:nth-child(3) { transition-delay: 0.26s; }
-.visible .model-visual--bars rect:nth-child(4) { transition-delay: 0.34s; }
-.visible .model-visual--bars rect:nth-child(5) { transition-delay: 0.42s; }
-
-.visible .model-visual--bars rect {
-  transform: scaleY(1);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .model-visual--bars rect {
-    transform: scaleY(1);
-    transition: none;
-  }
-}
-
-/* Gradient visual — wave-like pattern for visual variety */
-.model-gradient-bg {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(135deg, rgba(0, 31, 63, 0.2) 0%, transparent 40%),
-    linear-gradient(225deg, rgba(74, 142, 201, 0.08) 0%, transparent 50%),
-    repeating-linear-gradient(90deg, rgba(74, 142, 201, 0.06) 0px, transparent 1px, transparent 8px);
-}
-
-.model-meta {
-  display: flex;
-  padding: 0.7rem 1.2rem 0.8rem;
-  gap: 2rem;
-}
-
-.model-meta-col {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.model-meta-label {
-  font-family: var(--mono);
-  font-size: 0.5rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--white-25);
-}
-
-.model-meta-value {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  color: var(--white);
-}
-
-/* ── Market Pulse Bar ── */
-.models-pulse {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.2rem;
-  background: var(--black);
-  border-top: 1px solid var(--white-06);
-}
-
-.models-pulse-label {
-  font-family: var(--mono);
-  font-size: 0.58rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--white-25);
-  display: block;
-  margin-bottom: 0.35rem;
-}
-
-.models-pulse-desc {
-  font-family: var(--body);
-  font-size: 0.78rem;
-  font-weight: 300;
-  color: var(--white-40);
-}
-
-.models-pulse-right {
-  display: flex;
-  gap: 2.5rem;
-}
-
-.models-pulse-stat {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.2rem;
-}
-
-.models-pulse-num {
-  font-family: var(--mono);
-  font-size: 1rem;
-  font-weight: 300;
-  letter-spacing: 0.04em;
-  color: var(--white);
-}
-
-.models-pulse-key {
-  font-family: var(--mono);
-  font-size: 0.5rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--white-25);
-}
-
-.pillar-icon {
-  margin-bottom: 1.5rem;
-}
-
-.pillar-icon svg {
-  width: 24px;
-  height: 24px;
-  color: var(--text-blue);
-  opacity: 0.6;
-  transition: opacity 0.3s var(--ease);
-}
-
-.pillar:hover .pillar-icon svg {
-  opacity: 0.9;
 }
 
 .pillar h3 {
@@ -2581,7 +2678,8 @@ nav {
    ═══════════════════════════════════════════ */
 .pricing-grid {
   display: grid;
-  grid-template-columns: 0.85fr 1fr 1.15fr 1fr;
+  /* Order: Member · Gold (featured, widest) · Inner Circle · Free (narrowest, last) */
+  grid-template-columns: 1fr 1.15fr 1fr 0.85fr;
   gap: clamp(0.8rem, 1.5vw, 1.2rem);
   /* Stretch so tier heights equalize — combined with flex tier internals,
      this pins every CTA to the same Y and keeps feature lists sharing a baseline. */
@@ -2620,7 +2718,6 @@ nav {
 .tier--featured {
   background: var(--black-card);
   border-color: var(--border);
-  padding-top: clamp(2.5rem, 3vw, 3.5rem);
   padding-bottom: clamp(2.5rem, 3vw, 3.5rem);
   transform: translateY(-8px);
 }
@@ -2674,6 +2771,10 @@ nav {
   color: var(--white-60);
   margin-bottom: 1.5rem;
   line-height: 1.6;
+  /* Reserve 3 lines so shorter descriptions don't lift the price block above
+     Gold's longer copy. Keeps name, desc-end, and price on the same Y across
+     all four tier cards. */
+  min-height: 3lh;
 }
 
 .tier-price {
@@ -2735,9 +2836,10 @@ nav {
   font-size: 0.85rem;
   font-weight: 300;
   color: var(--white-60);
-  padding-left: 1.2rem;
+  padding-left: 0.9rem;
   position: relative;
   line-height: 1.6;
+  letter-spacing: -0.025em;
 }
 
 .tier-features li::before {
@@ -2812,6 +2914,101 @@ nav {
   text-align: center;
   margin-top: 1rem;
   letter-spacing: 0.06em;
+}
+
+/* Marquee bullet treatment: the only link in the pricing table. Used on the
+   Gold tier's "analytics terminal access" bullet so prospects can preview
+   the actual product. Subtle persistent underline + brand text-blue accent —
+   no bold, no glow, no special bullet marker. The singularity is the emphasis. */
+.tier-feature-link {
+  color: var(--text-blue);
+  text-decoration: underline;
+  text-decoration-color: rgba(74, 142, 201, 0.3);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.3s var(--ease);
+}
+
+.tier-feature-link:hover {
+  text-decoration-color: var(--text-blue);
+}
+
+.tier-feature-link-arrow {
+  font-size: 0.85em;
+  margin-left: 0.25em;
+  opacity: 0.7;
+}
+
+/* Inner Circle: take the cap out of the flex flow so the CTA pins to the
+   same baseline as Free and Member. The cap stays visually below the CTA
+   inside the tier's bottom padding. */
+.tier--inner-circle .tier-cap {
+  position: absolute;
+  bottom: 0.7rem;
+  left: 0;
+  right: 0;
+  margin-top: 0;
+}
+
+/* Gold tier: static spots-remaining indicator. Sits between price and
+   features; cancels the price's margin-bottom so the block owns its
+   spacing. */
+.tier--featured .tier-price:has(+ .tier-availability) {
+  margin-bottom: 0;
+}
+
+.tier-availability {
+  margin-top: 1.2rem;
+  margin-bottom: 1.8rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--white-06);
+}
+
+.tier-availability-label {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-blue);
+  margin-bottom: 0.5rem;
+}
+
+.tier-availability-value {
+  font-family: var(--body);
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: var(--white-40);
+  letter-spacing: -0.005em;
+  line-height: 1.4;
+}
+
+.tier-availability-number {
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--white);
+  margin-right: 0.05rem;
+}
+
+.tier-availability-rail {
+  margin-top: 0.6rem;
+  height: 2px;
+  width: 100%;
+  background: var(--white-06);
+  overflow: hidden;
+}
+
+.tier-availability-fill {
+  height: 100%;
+  background: var(--white-06);
+}
+
+/* Drop "spots" on very narrow viewports so the value line stays single. */
+@media (max-width: 360px) {
+  .tier-availability-spots {
+    display: none;
+  }
 }
 
 /* ═══════════════════════════════════════════
@@ -3292,52 +3489,49 @@ nav {
     gap: clamp(0.8rem, 1.5vw, 1.2rem);
   }
 
-  .pillar--primary {
-    grid-column: auto;
-    grid-row: auto;
-    border-left: 2px solid var(--navy);
-    border-bottom: 1px solid var(--white-06);
-    border-radius: 8px;
-    margin-bottom: 0;
-  }
-
+  .pillar--analytics,
   .pillar--secondary {
     grid-column: auto;
     grid-row: auto;
   }
 
-  .pillar--models {
-    grid-column: auto;
-    margin-top: 0;
-    border-left: 2px solid var(--navy);
-    border-radius: 8px;
+  .analytics-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 0 0.4rem;
   }
 
-  .pillar--secondary {
-    grid-column: auto;
-    grid-row: auto;
+  .analytics-tabs::-webkit-scrollbar {
+    display: none;
   }
 
-  .pillar-visual {
-    height: 120px;
+  .analytics-tab {
+    flex-shrink: 0;
+    padding: 0.85rem 0.7rem;
   }
 
-  .models-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .analytics-tab-counter {
+    flex-shrink: 0;
+    padding-left: 0.6rem;
   }
 
-  .model-card:nth-child(even) {
-    border-right: none;
+  .analytics-chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
 
-  .model-card:nth-child(n+3) {
-    border-top: 1px solid var(--white-06);
+  .analytics-chips::-webkit-scrollbar {
+    display: none;
   }
 
-  .models-pulse {
+  .analytics-footer {
     flex-direction: column;
-    gap: 1.2rem;
     align-items: flex-start;
+    gap: 1rem;
+    padding-bottom: 1.2rem;
   }
 
   .step {
@@ -3395,17 +3589,20 @@ nav {
     gap: 0.8rem;
   }
 
-  .models-grid {
-    grid-template-columns: 1fr;
+  .analytics-tab {
+    font-size: 0.55rem;
+    padding: 0.7rem 0.6rem;
   }
 
-  .model-card {
-    border-right: none !important;
-    border-bottom: 1px solid var(--white-06);
+  .analytics-chip {
+    font-size: 0.58rem;
+    padding: 0.38rem 0.6rem;
   }
 
-  .model-card:last-child {
-    border-bottom: none;
+  .analytics-chip-title {
+    max-width: 14ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .funnel-visual {
@@ -3482,12 +3679,60 @@ nav {
   margin-bottom: 0.8rem;
 }
 
+.section-header-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  column-gap: clamp(1.5rem, 3vw, 2.5rem);
+  row-gap: 0.5rem;
+}
+
+.section-header-row h2 {
+  margin: 0;
+}
+
+.insights-section-header .section-header-row {
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.insights-realtime {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  color: var(--white-40);
+  text-decoration: none;
+  padding-bottom: 0.3rem;
+  transition: color 0.3s var(--ease);
+}
+
+.insights-realtime svg {
+  flex-shrink: 0;
+}
+
+.insights-realtime .realtime-handle {
+  color: var(--text-blue);
+  transition: color 0.3s var(--ease);
+}
+
+.insights-realtime:hover {
+  color: var(--white-60);
+}
+
+.insights-realtime:hover .realtime-handle {
+  color: var(--white);
+}
+
 .insights-section-desc {
   font-family: var(--body);
   font-size: clamp(1rem, 1.1vw, 1.05rem);
   font-weight: 300;
   color: var(--white-60);
-  max-width: 58ch;
+  max-width: 84ch;
   line-height: 1.7;
 }
 
@@ -3509,9 +3754,141 @@ nav {
   padding: 0 clamp(1.5rem, 4vw, 3.5rem);
 }
 
-/* Intro */
+/* Intro with golden-ratio construction drawing (v4 — content-sized).
+   Section sizes to its copy with symmetric vertical breathing room. The lion +
+   scaffold sits in the right column, vertically centered against the text block
+   so they read as a paired composition. Labels are NOT mirrored (re-emitted at
+   mirrored positions in the SVG so they stay readable). A subtle left-edge fade
+   keeps the leftmost spiral filaments out of the gutter. */
+.about-first {
+  position: relative;
+  overflow: hidden;
+  padding-top: clamp(7rem, 11vw, 9rem);
+  padding-bottom: clamp(7rem, 11vw, 9rem);
+}
+
+.about-first::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(10, 10, 10, 1) 0%,
+    rgba(10, 10, 10, 0.72) 8%,
+    rgba(10, 10, 10, 0.28) 20%,
+    rgba(10, 10, 10, 0) 36%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
 .about-intro {
-  max-width: 720px;
+  max-width: 640px;
+  position: relative;
+  z-index: 2;
+}
+
+.about-intro::before {
+  content: "";
+  position: absolute;
+  inset: -2.5rem -4rem -2.5rem -6rem;
+  background: linear-gradient(
+    98deg,
+    rgba(10, 10, 10, 0.88) 0%,
+    rgba(10, 10, 10, 0.7) 38%,
+    rgba(10, 10, 10, 0.35) 70%,
+    rgba(10, 10, 10, 0) 100%
+  );
+  filter: blur(14px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.about-intro-visual-wrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.85;
+  background-image: url("/images/blockphi_about_hero.svg");
+  background-repeat: no-repeat;
+  background-size: 62% auto;
+  background-position: 92% 50%;
+  /* Left-to-right fade: invisible at the left edge, fully visible at the right.
+     The lion is anchored at 92% of the section width so the strongest part of
+     the gradient sits exactly under the lion. */
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.06) 18%,
+    rgba(0, 0, 0, 0.28) 35%,
+    rgba(0, 0, 0, 0.65) 55%,
+    rgba(0, 0, 0, 0.92) 75%,
+    #000 92%
+  );
+          mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.06) 18%,
+    rgba(0, 0, 0, 0.28) 35%,
+    rgba(0, 0, 0, 0.65) 55%,
+    rgba(0, 0, 0, 0.92) 75%,
+    #000 92%
+  );
+}
+
+@media (max-width: 1023px) {
+  .about-intro-visual-wrap {
+    opacity: 0.62;
+    background-size: 78% auto;
+    background-position: 95% 50%;
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.1) 25%,
+      rgba(0, 0, 0, 0.55) 50%,
+      rgba(0, 0, 0, 0.9) 75%,
+      #000 95%
+    );
+            mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.1) 25%,
+      rgba(0, 0, 0, 0.55) 50%,
+      rgba(0, 0, 0, 0.9) 75%,
+      #000 95%
+    );
+  }
+}
+
+@media (max-width: 767px) {
+  .about-intro-visual-wrap {
+    opacity: 0.24;
+    background-size: 110% auto;
+    background-position: 60% 100%;
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.45) 30%,
+      rgba(0, 0, 0, 0.85) 70%,
+      #000 100%
+    );
+            mask-image: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.45) 30%,
+      rgba(0, 0, 0, 0.85) 70%,
+      #000 100%
+    );
+  }
+  .about-intro::before {
+    inset: -1.5rem -1.5rem -1.5rem -1.5rem;
+    background: linear-gradient(
+      180deg,
+      rgba(10, 10, 10, 0.4) 0%,
+      rgba(10, 10, 10, 0.7) 100%
+    );
+  }
 }
 
 .about-headline {
@@ -3574,7 +3951,7 @@ nav {
   margin-bottom: 0.8rem;
 }
 
-/* Team */
+/* Team grid layout */
 .about-team {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -3582,10 +3959,102 @@ nav {
   margin-top: 2rem;
 }
 
+.about-team--stacked {
+  grid-template-columns: 1.15fr 1fr 1fr;
+  gap: 3.5rem;
+  margin-top: 2.5rem;
+}
+
+/* Asymmetric founder layout: Jack featured (1.4fr), Remy + Freek stacked (1fr) */
+.about-team--asymmetric {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  margin-top: 2.5rem;
+  align-items: start;
+}
+
+.about-team-secondary {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 3.5vw, 3rem);
+  padding-top: 0.4rem;
+  border-left: 1px solid var(--white-06);
+  padding-left: clamp(2rem, 3.5vw, 3rem);
+}
+
+.about-team-secondary .about-team-member {
+  flex-direction: row;
+  gap: 1.4rem;
+  align-items: flex-start;
+}
+
+.about-team-secondary .about-team-photo {
+  width: 96px;
+  height: 96px;
+}
+
+.about-team-secondary .about-team-info p {
+  font-size: 0.84rem;
+  max-width: 42ch;
+}
+
 .about-team-member {
   display: flex;
   gap: 1.5rem;
   align-items: flex-start;
+}
+
+/* Featured founder card */
+.about-team-member--lead {
+  flex-direction: column;
+  gap: 1.6rem;
+  padding-bottom: 0.5rem;
+}
+
+.about-team-member--lead .about-team-photo {
+  width: clamp(160px, 22vw, 220px);
+  height: clamp(160px, 22vw, 220px);
+  border-radius: 50%;
+}
+
+.about-team-member--lead .about-team-info h3 {
+  font-family: var(--heading);
+  font-weight: 300;
+  font-size: clamp(1.6rem, 2.4vw, 2rem);
+  letter-spacing: -0.01em;
+  margin-bottom: 0.3rem;
+  line-height: 1.15;
+}
+
+.about-team-member--lead .about-team-info p {
+  font-size: 0.92rem;
+  max-width: 48ch;
+  line-height: 1.75;
+}
+
+.about-team-tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-blue);
+  margin-bottom: 0.7rem;
+}
+
+.about-team--stacked .about-team-member {
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.about-team--stacked .about-team-photo {
+  width: 140px;
+  height: 140px;
+}
+
+.about-team--stacked .about-team-info p {
+  max-width: 38ch;
 }
 
 .about-team-photo {
@@ -3601,6 +4070,28 @@ nav {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* Typographic monogram for team members without a photo */
+.about-team-photo--monogram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--navy);
+}
+
+.about-team-photo--monogram span {
+  font-family: var(--heading);
+  font-weight: 300;
+  font-size: 2.4rem;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  user-select: none;
+}
+
+.about-team-secondary .about-team-photo--monogram span {
+  font-size: 2rem;
 }
 
 .about-team-info h3 {
@@ -3645,6 +4136,53 @@ nav {
 
 .about-team-socials a:hover {
   color: var(--white);
+}
+
+/* Independent Analysts marquee - continuous horizontal scroll */
+.analysts-marquee {
+  margin-top: 2.5rem;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+          mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+
+.analysts-marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 3rem;
+  animation: analysts-marquee-scroll 60s linear infinite;
+}
+
+.analysts-marquee:hover .analysts-marquee-track,
+.analysts-marquee:focus-within .analysts-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes analysts-marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .analysts-marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+.analysts-marquee-card {
+  flex: 0 0 auto;
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  align-items: flex-start;
+}
+
+.analysts-marquee-card .about-team-photo {
+  width: 120px;
+  height: 120px;
 }
 
 /* Affiliate CTA */
@@ -3744,6 +4282,73 @@ nav {
 @media (max-width: 768px) {
   .about-coverage {
     grid-template-columns: 1fr;
+  }
+}
+
+/* About intro — Founder's Note + Why BlockPhi as a paired editorial row.
+   Fits inside the original 640px intro column so the lion + golden-ratio
+   visual on the right keeps its proportion. Founder's Note sits left
+   (more content), Why BlockPhi sits right (compact label block).
+   A single hairline above replaces the per-block border-top on about-name-origin. */
+.about-intro-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(1.6rem, 3vw, 2.6rem);
+  margin-top: 2rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--white-06);
+}
+
+.about-intro-grid .about-name-origin {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+  max-width: none;
+}
+
+.about-letter-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin: 0;
+}
+
+.about-letter-intro-prose {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  font-family: var(--body);
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--white-60);
+}
+
+.about-letter-intro-prose p {
+  margin: 0;
+}
+
+/* Subtle italic on the lead-line "The room matters as much as the research."
+   Same size as body, just italicized + brightened for emphasis. */
+.about-letter-intro-prose em {
+  font-style: italic;
+  color: var(--white);
+}
+
+.about-letter-intro-sign {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-blue);
+  margin: 0.4rem 0 0;
+}
+
+@media (max-width: 900px) {
+  .about-intro-grid {
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
   }
 }
 
@@ -3875,6 +4480,24 @@ nav {
     gap: 2.5rem;
   }
 
+  .about-team--asymmetric {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .about-team-secondary {
+    border-left: none;
+    border-top: 1px solid var(--white-06);
+    padding-left: 0;
+    padding-top: 2rem;
+    gap: 2rem;
+  }
+
+  .about-team-secondary .about-team-member {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
   .contact-form-row {
     grid-template-columns: 1fr;
   }
@@ -3926,49 +4549,57 @@ nav {
   color: var(--white);
 }
 
-/* ── Subscribe Strip ── */
+/* ── Subscribe Strip — newsletter signup at end of insights page ── */
 .subscribe-strip {
   border-top: 1px solid var(--border);
-  padding: clamp(3rem, 5vw, 4rem) 0 clamp(1rem, 2vw, 1.5rem);
+  padding: clamp(4rem, 6vw, 5.5rem) 0 clamp(3rem, 4vw, 4rem);
 }
 
 .subscribe-strip .section-tag {
-  margin-bottom: 1.4rem;
+  margin-bottom: 1.6rem;
   padding-left: 0.75rem;
   border-left: 2px solid var(--navy);
 }
 
 .subscribe-row {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 2.5rem;
+  column-gap: clamp(2rem, 4vw, 3rem);
+  row-gap: 1.4rem;
+  margin-top: 1.4rem;
 }
+
+.subscribe-row .subscribe-form { flex-basis: 100%; }
 
 .subscribe-strip-text {
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.06em;
-  color: var(--white-25);
-  line-height: 1.5;
+  font-family: var(--body);
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
+  font-weight: 200;
+  letter-spacing: 0;
+  color: var(--white-60);
+  line-height: 1.55;
+  margin: 0;
 }
 
-/* Form — input with bottom border only, flush subscribe button */
+/* Form — input with bottom border, separated navy-outline button */
 .subscribe-form {
   display: flex;
   align-items: stretch;
+  gap: 0.9rem;
   flex-shrink: 0;
 }
 
 .subscribe-input {
   font-family: var(--mono);
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   letter-spacing: 0.04em;
   color: var(--white);
   background: transparent;
   border: none;
-  border-bottom: 1px solid var(--white-12);
-  padding: 0.45rem 0;
-  width: 220px;
+  border-bottom: 1px solid var(--white-25);
+  padding: 0.6rem 0;
+  width: 240px;
   outline: none;
   transition: border-color 0.3s var(--ease);
 }
@@ -3986,70 +4617,83 @@ nav {
 }
 
 .subscribe-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
   font-family: var(--mono);
-  font-size: 0.55rem;
-  font-weight: 400;
-  letter-spacing: 0.1em;
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--white-40);
+  color: var(--white);
   background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--white-12);
-  padding: 0.45rem 0 0.45rem 0.8rem;
+  border: 1px solid var(--navy);
+  padding: 0 1.3rem;
   cursor: pointer;
   white-space: nowrap;
-  transition: color 0.3s var(--ease);
+  transition: background 0.3s var(--ease), border-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+
+.subscribe-btn svg {
+  flex-shrink: 0;
+  opacity: 0.85;
+  transition: opacity 0.3s var(--ease);
 }
 
 .subscribe-btn:hover {
-  color: var(--white);
+  background: var(--navy);
+  border-color: var(--navy-mid);
+}
+
+.subscribe-btn:hover svg {
+  opacity: 1;
 }
 
 .subscribe-btn:disabled {
   cursor: default;
-  color: var(--text-blue);
+  opacity: 0.6;
 }
 
-/* Follow line — above the subscribe row */
+/* Follow line — below the subscribe row */
 .subscribe-follow {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-  color: var(--white-25);
+  gap: 0.55rem;
+  color: var(--white-40);
 }
 
 .subscribe-follow svg {
   flex-shrink: 0;
-  opacity: 0.5;
 }
 
 .subscribe-follow span {
   font-family: var(--mono);
-  font-size: 0.6rem;
+  font-size: 0.62rem;
   letter-spacing: 0.06em;
-  color: var(--white-25);
+  color: var(--white-40);
 }
 
 .subscribe-follow a {
   color: var(--text-blue);
   text-decoration: none;
-  transition: color 0.3s var(--ease);
+  border-bottom: 1px solid transparent;
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
 }
 
 .subscribe-follow a:hover {
   color: var(--white);
+  border-bottom-color: var(--text-blue);
+}
+
+@media (max-width: 768px) {
+  .subscribe-row {
+    align-items: stretch;
+  }
 }
 
 @media (max-width: 640px) {
-  .subscribe-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
   .subscribe-input {
-    width: 160px;
+    width: 180px;
   }
 }
 
@@ -4692,6 +5336,7 @@ nav.nav-scrolled {
 .visible .tier-features li:nth-child(4) { transition-delay: 0.28s; }
 .visible .tier-features li:nth-child(5) { transition-delay: 0.34s; }
 .visible .tier-features li:nth-child(6) { transition-delay: 0.40s; }
+.visible .tier-features li:nth-child(7) { transition-delay: 0.46s; }
 
 @media (prefers-reduced-motion: reduce) {
   .tier-features li {
@@ -4721,8 +5366,6 @@ nav.nav-scrolled {
   .tier--free:hover,
   .tier--featured:hover,
   .pillar:hover,
-  .pillar--primary:hover,
-  .pillar--models:hover,
   .tm-card:hover,
   .step:hover,
   .about-coverage-item:hover,

@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+
+<defs>
+  <style>
+    .solid    { fill: none; stroke: #4A8EC9; stroke-width: 1.2; }
+    .hair     { fill: none; stroke: #4A8EC9; stroke-width: 0.9; }
+    .dashed   { fill: none; stroke: #4A8EC9; stroke-width: 0.9; stroke-dasharray: 8 6; }
+    .dotted   { fill: none; stroke: #4A8EC9; stroke-width: 0.9; stroke-dasharray: 2 5; stroke-linecap: round; }
+    .dotted-fine { fill: none; stroke: #4A8EC9; stroke-width: 0.7; stroke-dasharray: 1.5 4; stroke-linecap: round; }
+    .tickline { fill: none; stroke: #4A8EC9; stroke-width: 1.0; }
+    .label    { fill: #4A8EC9; font-family: 'Helvetica Neue', 'Inter', 'Arial', sans-serif;
+                 font-size: 22px; font-style: italic; }
+    .label-sm { fill: #4A8EC9; font-family: 'Helvetica Neue', 'Inter', 'Arial', sans-serif;
+                 font-size: 18px; font-style: italic; }
+    .mono     { fill: #4A8EC9; font-family: 'Helvetica Neue', 'Inter', 'Arial', sans-serif;
+                 font-size: 20px; font-style: italic; letter-spacing: 0.5px; }
+  </style>
+</defs>
+
+<!-- Master golden rectangle -->
+<rect x="326.606" y="80.000" width="1326.788" height="820.000" class="solid"/>
+<!-- Fibonacci square subdivision lines (dashed) -->
+<line x1="1146.606" y1="80.000" x2="1146.606" y2="900.000" class="dashed"/>
+<line x1="1146.606" y1="586.788" x2="1653.394" y2="586.788" class="dashed"/>
+<line x1="1340.182" y1="586.788" x2="1340.182" y2="900.000" class="dashed"/>
+<line x1="1146.606" y1="706.424" x2="1340.182" y2="706.424" class="dashed"/>
+<line x1="1266.242" y1="586.788" x2="1266.242" y2="706.424" class="dashed"/>
+<line x1="1266.242" y1="660.727" x2="1340.182" y2="660.727" class="dashed"/>
+<!-- Main diagonals (dashed) -->
+<line x1="326.606" y1="80.000" x2="1653.394" y2="900.000" class="dashed"/>
+<line x1="326.606" y1="900.000" x2="1653.394" y2="80.000" class="dashed"/>
+<!-- Diagonals of the primary (left) square -->
+<line x1="326.606" y1="80.000" x2="1146.606" y2="900.000" class="dashed"/>
+<line x1="326.606" y1="900.000" x2="1146.606" y2="80.000" class="dashed"/>
+<!-- Fibonacci spiral (solid - the proof line) -->
+<path d="M 326.606 900.000 A 820.000 820.000 0 0 1 1146.606 80.000 A 506.788 506.788 0 0 1 1653.394 586.788 A 313.212 313.212 0 0 1 1340.182 900.000 A 193.576 193.576 0 0 1 1146.606 706.424 A 119.636 119.636 0 0 1 1266.242 586.788 A 73.939 73.939 0 0 1 1340.182 660.727" class="solid"/>
+<!-- Guide circles (dotted) centered on lion -->
+<circle cx="736.606" cy="490.000" r="389.500" class="dotted-fine"/>
+<circle cx="736.606" cy="490.000" r="240.724" class="dotted-fine"/>
+<circle cx="736.606" cy="490.000" r="148.776" class="dotted-fine"/>
+<!-- Horizontal reference lines (dotted) -->
+<line x1="306.606" y1="393.212" x2="1653.394" y2="393.212" class="dotted"/>
+<line x1="306.606" y1="586.788" x2="1653.394" y2="586.788" class="dotted"/>
+<line x1="306.606" y1="490.000" x2="1653.394" y2="490.000" class="dotted"/>
+<!-- Vertical reference lines (dotted) -->
+<line x1="639.818" y1="60.000" x2="639.818" y2="920.000" class="dotted"/>
+<line x1="833.394" y1="60.000" x2="833.394" y2="920.000" class="dotted"/>
+<!-- Tick-mark crosses at key intersections -->
+<line x1="318.606" y1="80.000" x2="334.606" y2="80.000" class="tickline"/><line x1="326.606" y1="72.000" x2="326.606" y2="88.000" class="tickline"/>
+<line x1="1645.394" y1="80.000" x2="1661.394" y2="80.000" class="tickline"/><line x1="1653.394" y1="72.000" x2="1653.394" y2="88.000" class="tickline"/>
+<line x1="318.606" y1="900.000" x2="334.606" y2="900.000" class="tickline"/><line x1="326.606" y1="892.000" x2="326.606" y2="908.000" class="tickline"/>
+<line x1="1645.394" y1="900.000" x2="1661.394" y2="900.000" class="tickline"/><line x1="1653.394" y1="892.000" x2="1653.394" y2="908.000" class="tickline"/>
+<line x1="1140.606" y1="80.000" x2="1152.606" y2="80.000" class="tickline"/><line x1="1146.606" y1="74.000" x2="1146.606" y2="86.000" class="tickline"/>
+<line x1="1140.606" y1="900.000" x2="1152.606" y2="900.000" class="tickline"/><line x1="1146.606" y1="894.000" x2="1146.606" y2="906.000" class="tickline"/>
+<line x1="1140.606" y1="586.788" x2="1152.606" y2="586.788" class="tickline"/><line x1="1146.606" y1="580.788" x2="1146.606" y2="592.788" class="tickline"/>
+<line x1="1647.394" y1="586.788" x2="1659.394" y2="586.788" class="tickline"/><line x1="1653.394" y1="580.788" x2="1653.394" y2="592.788" class="tickline"/>
+<line x1="1334.182" y1="586.788" x2="1346.182" y2="586.788" class="tickline"/><line x1="1340.182" y1="580.788" x2="1340.182" y2="592.788" class="tickline"/>
+<line x1="1334.182" y1="900.000" x2="1346.182" y2="900.000" class="tickline"/><line x1="1340.182" y1="894.000" x2="1340.182" y2="906.000" class="tickline"/>
+<line x1="1140.606" y1="706.424" x2="1152.606" y2="706.424" class="tickline"/><line x1="1146.606" y1="700.424" x2="1146.606" y2="712.424" class="tickline"/>
+<line x1="1260.242" y1="586.788" x2="1272.242" y2="586.788" class="tickline"/><line x1="1266.242" y1="580.788" x2="1266.242" y2="592.788" class="tickline"/>
+<line x1="634.818" y1="393.212" x2="644.818" y2="393.212" class="tickline"/><line x1="639.818" y1="388.212" x2="639.818" y2="398.212" class="tickline"/>
+<line x1="828.394" y1="393.212" x2="838.394" y2="393.212" class="tickline"/><line x1="833.394" y1="388.212" x2="833.394" y2="398.212" class="tickline"/>
+<line x1="634.818" y1="586.788" x2="644.818" y2="586.788" class="tickline"/><line x1="639.818" y1="581.788" x2="639.818" y2="591.788" class="tickline"/>
+<line x1="828.394" y1="586.788" x2="838.394" y2="586.788" class="tickline"/><line x1="833.394" y1="581.788" x2="833.394" y2="591.788" class="tickline"/>
+<line x1="1335.182" y1="660.727" x2="1345.182" y2="660.727" class="tickline"/><line x1="1340.182" y1="655.727" x2="1340.182" y2="665.727" class="tickline"/>
+<!-- Left dimension brackets -->
+<line x1="271.606" y1="80.000" x2="271.606" y2="900.000" class="solid"/>
+<line x1="265.606" y1="80.000" x2="277.606" y2="80.000" class="solid"/>
+<line x1="265.606" y1="900.000" x2="277.606" y2="900.000" class="solid"/>
+<line x1="265.606" y1="586.788" x2="277.606" y2="586.788" class="solid"/>
+<text x="249.606" y="340.394" text-anchor="end" class="label">1</text>
+<text x="249.606" y="750.394" text-anchor="end" class="label">1/φ</text>
+<line x1="221.606" y1="80.000" x2="221.606" y2="900.000" class="hair"/>
+<line x1="215.606" y1="80.000" x2="227.606" y2="80.000" class="hair"/>
+<line x1="215.606" y1="900.000" x2="227.606" y2="900.000" class="hair"/>
+<text x="209.606" y="497.000" text-anchor="end" class="label">φ</text>
+<!-- Bottom annotation -->
+<text x="80.000" y="970.000" class="mono">φ = 1.6180339887...</text>
+<line x1="80.000" y1="1000.000" x2="360.000" y2="1000.000" class="tickline"/>
+<line x1="80.000" y1="1000.000" x2="80.000" y2="990.000" class="tickline"/>
+<line x1="108.000" y1="1000.000" x2="108.000" y2="994.000" class="tickline"/>
+<line x1="136.000" y1="1000.000" x2="136.000" y2="994.000" class="tickline"/>
+<line x1="164.000" y1="1000.000" x2="164.000" y2="994.000" class="tickline"/>
+<line x1="192.000" y1="1000.000" x2="192.000" y2="994.000" class="tickline"/>
+<line x1="220.000" y1="1000.000" x2="220.000" y2="990.000" class="tickline"/>
+<line x1="248.000" y1="1000.000" x2="248.000" y2="994.000" class="tickline"/>
+<line x1="276.000" y1="1000.000" x2="276.000" y2="994.000" class="tickline"/>
+<line x1="304.000" y1="1000.000" x2="304.000" y2="994.000" class="tickline"/>
+<line x1="332.000" y1="1000.000" x2="332.000" y2="994.000" class="tickline"/>
+<line x1="360.000" y1="1000.000" x2="360.000" y2="990.000" class="tickline"/>
+<line x1="85.600" y1="1000.000" x2="85.600" y2="997.000" class="tickline"/>
+<line x1="91.200" y1="1000.000" x2="91.200" y2="997.000" class="tickline"/>
+<line x1="96.800" y1="1000.000" x2="96.800" y2="997.000" class="tickline"/>
+<line x1="102.400" y1="1000.000" x2="102.400" y2="997.000" class="tickline"/>
+<line x1="113.600" y1="1000.000" x2="113.600" y2="997.000" class="tickline"/>
+<line x1="119.200" y1="1000.000" x2="119.200" y2="997.000" class="tickline"/>
+<line x1="124.800" y1="1000.000" x2="124.800" y2="997.000" class="tickline"/>
+<line x1="130.400" y1="1000.000" x2="130.400" y2="997.000" class="tickline"/>
+<line x1="141.600" y1="1000.000" x2="141.600" y2="997.000" class="tickline"/>
+<line x1="147.200" y1="1000.000" x2="147.200" y2="997.000" class="tickline"/>
+<line x1="152.800" y1="1000.000" x2="152.800" y2="997.000" class="tickline"/>
+<line x1="158.400" y1="1000.000" x2="158.400" y2="997.000" class="tickline"/>
+<line x1="169.600" y1="1000.000" x2="169.600" y2="997.000" class="tickline"/>
+<line x1="175.200" y1="1000.000" x2="175.200" y2="997.000" class="tickline"/>
+<line x1="180.800" y1="1000.000" x2="180.800" y2="997.000" class="tickline"/>
+<line x1="186.400" y1="1000.000" x2="186.400" y2="997.000" class="tickline"/>
+<line x1="197.600" y1="1000.000" x2="197.600" y2="997.000" class="tickline"/>
+<line x1="203.200" y1="1000.000" x2="203.200" y2="997.000" class="tickline"/>
+<line x1="208.800" y1="1000.000" x2="208.800" y2="997.000" class="tickline"/>
+<line x1="214.400" y1="1000.000" x2="214.400" y2="997.000" class="tickline"/>
+<line x1="225.600" y1="1000.000" x2="225.600" y2="997.000" class="tickline"/>
+<line x1="231.200" y1="1000.000" x2="231.200" y2="997.000" class="tickline"/>
+<line x1="236.800" y1="1000.000" x2="236.800" y2="997.000" class="tickline"/>
+<line x1="242.400" y1="1000.000" x2="242.400" y2="997.000" class="tickline"/>
+<line x1="253.600" y1="1000.000" x2="253.600" y2="997.000" class="tickline"/>
+<line x1="259.200" y1="1000.000" x2="259.200" y2="997.000" class="tickline"/>
+<line x1="264.800" y1="1000.000" x2="264.800" y2="997.000" class="tickline"/>
+<line x1="270.400" y1="1000.000" x2="270.400" y2="997.000" class="tickline"/>
+<line x1="281.600" y1="1000.000" x2="281.600" y2="997.000" class="tickline"/>
+<line x1="287.200" y1="1000.000" x2="287.200" y2="997.000" class="tickline"/>
+<line x1="292.800" y1="1000.000" x2="292.800" y2="997.000" class="tickline"/>
+<line x1="298.400" y1="1000.000" x2="298.400" y2="997.000" class="tickline"/>
+<line x1="309.600" y1="1000.000" x2="309.600" y2="997.000" class="tickline"/>
+<line x1="315.200" y1="1000.000" x2="315.200" y2="997.000" class="tickline"/>
+<line x1="320.800" y1="1000.000" x2="320.800" y2="997.000" class="tickline"/>
+<line x1="326.400" y1="1000.000" x2="326.400" y2="997.000" class="tickline"/>
+<line x1="337.600" y1="1000.000" x2="337.600" y2="997.000" class="tickline"/>
+<line x1="343.200" y1="1000.000" x2="343.200" y2="997.000" class="tickline"/>
+<line x1="348.800" y1="1000.000" x2="348.800" y2="997.000" class="tickline"/>
+<line x1="354.400" y1="1000.000" x2="354.400" y2="997.000" class="tickline"/>
+</svg>

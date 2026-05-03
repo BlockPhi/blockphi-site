@@ -1,13 +1,7 @@
 import Image from "next/image";
 import ScrollReveal from "../ui/ScrollReveal";
 import SectionTitle from "../ui/SectionTitle";
-
-const models = [
-  { name: "AGGRESSIVE_01", asset: "Digital Assets", weight: "65.40%", visual: "bars" },
-  { name: "NEUTRAL_04", asset: "Global Equities", weight: "24.15%", visual: "circle" },
-  { name: "PROTECT_09", asset: "Hedged/Cash", weight: "10.45%", visual: "gradient" },
-  { name: "YIELD_02", asset: "Fixed Income", weight: "12.80%", visual: "bars" },
-];
+import AnalyticsPane from "./AnalyticsPane";
 
 /* Platform logos that represent the "noise" investors deal with */
 const noiseSources = [
@@ -51,96 +45,66 @@ export default function Pillars() {
           <span className="section-tag">What You Get</span>
           <SectionTitle>Two pillars. One edge.</SectionTitle>
           <p className="section-sub">
+            Quantitative macro analytics and a curated peer circle.
+            <br />
             BlockPhi is your all-in-one framework for wealth management across crypto and global markets.
             <br />
-            Built for investors who think in years, not candles. Quantitative macro analytics and a curated peer circle.
+            Built for investors with long horizons focused on building durable returns.
           </p>
         </ScrollReveal>
 
         <ScrollReveal className="pillars-layout" stagger>
           {/* ── LEFT PILLAR: Proprietary Analytics ── */}
-          <div className="pillar pillar--primary">
-            <div className="pillar-visual" aria-hidden="true" />
-            <div className="pillar-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 2L12 6" />
-                <path d="M12 18L12 22" />
-                <path d="M4.93 4.93L7.76 7.76" />
-                <path d="M16.24 16.24L19.07 19.07" />
-                <path d="M2 12L6 12" />
-                <path d="M18 12L22 12" />
-                <circle cx="12" cy="12" r="4" />
-              </svg>
+          <div className="pillar pillar--analytics">
+            {/* Header — title + 2-line description above the chart pane.
+                No decorative icon: institutional sites (Two Sigma, AQR,
+                Citadel) earn the space with typography alone. */}
+            <div className="pillar-header">
+              <h3>Proprietary Analytics</h3>
+              <p>
+                Our proprietary frameworks for Global Liquidity&apos;s
+                transmission to Bitcoin. Built to identify asymmetric
+                entries ahead of consensus, for investors who want the
+                data behind the thesis, not just the conclusion.
+              </p>
             </div>
-            <h3>Proprietary Analytics</h3>
-            <p>
-              Our frameworks combine on-chain metrics with macro liquidity
-              cycles to identify asymmetric entries ahead of consensus.
-              Frameworks you can apply to your portfolio today.
-            </p>
-          </div>
 
-          <div className="pillar pillar--models">
-            <div className="models-caption">
-              <span className="models-caption-tag">Sample allocation frameworks</span>
-              <span className="models-caption-note">Illustrative. Each model is a standalone strategy, not a single combined portfolio.</span>
-            </div>
-            <div className="models-grid">
-              {models.map((m) => (
-                <div key={m.name} className="model-card">
-                  <div className="model-header">
-                    <span className="model-label">Model</span>
-                    <span className="model-name">{m.name}</span>
-                  </div>
-                  <div className={`model-visual model-visual--${m.visual}`} aria-hidden="true">
-                    {m.visual === "bars" && (
-                      <svg viewBox="0 0 120 80" fill="none">
-                        <rect x="8" y="35" width="18" height="45" fill="rgba(74,142,201,0.25)" />
-                        <rect x="30" y="15" width="18" height="65" fill="rgba(74,142,201,0.35)" />
-                        <rect x="52" y="25" width="18" height="55" fill="rgba(74,142,201,0.45)" />
-                        <rect x="74" y="8" width="18" height="72" fill="rgba(74,142,201,0.3)" />
-                        <rect x="96" y="20" width="18" height="60" fill="rgba(74,142,201,0.4)" />
-                      </svg>
-                    )}
-                    {m.visual === "circle" && (
-                      <svg viewBox="0 0 120 80" fill="none">
-                        <circle cx="60" cy="40" r="28" stroke="rgba(74,142,201,0.2)" strokeWidth="3" />
-                        <circle cx="60" cy="40" r="22" stroke="rgba(74,142,201,0.15)" strokeWidth="2" />
-                        <circle cx="60" cy="40" r="16" stroke="rgba(74,142,201,0.1)" strokeWidth="1.5" />
-                      </svg>
-                    )}
-                    {m.visual === "gradient" && (
-                      <div className="model-gradient-bg" />
-                    )}
-                  </div>
-                  <div className="model-meta">
-                    <div className="model-meta-col">
-                      <span className="model-meta-label">Asset Class</span>
-                      <span className="model-meta-value">{m.asset}</span>
-                    </div>
-                    <div className="model-meta-col">
-                      <span className="model-meta-label">Weighting</span>
-                      <span className="model-meta-value">{m.weight}</span>
-                    </div>
-                  </div>
+            <AnalyticsPane />
+
+            {/* Three live-state metrics, one per framework lens
+                surfaced in the chart pane:
+                  - BTC z-score divergence  ─ Regime tab (chart 05)
+                  - 11W forecast q50 median ─ Forecast tab (chart 09)
+                  - 52W rolling β            ─ Sensitivity tab (chart 10)
+                Values shown here are calibrated placeholders. Once the
+                analytics-terminal API is wired up, each one updates
+                live from its source chart. The pulsing dot at the
+                "View live data" link signals that these are
+                time-varying, not static framework parameters. */}
+            <div className="analytics-footer">
+              <div className="analytics-metric-set">
+                <div className="analytics-metric">
+                  <span className="analytics-metric-num">-1.08σ</span>
+                  <span className="analytics-metric-key">BTC Z-Score</span>
                 </div>
-              ))}
-            </div>
-            <div className="models-pulse">
-              <div className="models-pulse-left">
-                <span className="models-pulse-label">Current Market Pulse</span>
-                <span className="models-pulse-desc">Figures refresh with live market data.</span>
-              </div>
-              <div className="models-pulse-right">
-                <div className="models-pulse-stat">
-                  <span className="models-pulse-num">0.9842</span>
-                  <span className="models-pulse-key">Correlation</span>
+                <div className="analytics-metric">
+                  <span className="analytics-metric-num">+0.4%</span>
+                  <span className="analytics-metric-key">11W Forecast</span>
                 </div>
-                <div className="models-pulse-stat">
-                  <span className="models-pulse-num">1.24x</span>
-                  <span className="models-pulse-key">Volatility</span>
+                <div className="analytics-metric">
+                  <span className="analytics-metric-num">0.018</span>
+                  <span className="analytics-metric-key">Rolling β</span>
                 </div>
               </div>
+              <a
+                href="https://analytics.blockphi.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="analytics-terminal-link"
+              >
+                <span className="analytics-live-dot" aria-hidden="true" />
+                View live data
+              </a>
             </div>
           </div>
 
@@ -160,14 +124,6 @@ export default function Pillars() {
               </div>
             </div>
 
-            <div className="pillar-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                <circle cx="9" cy="7" r="4" />
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-              </svg>
-            </div>
             <h3>Curated Investor Circle</h3>
             <p>
               An invitation-only circle of high-net-worth individuals and

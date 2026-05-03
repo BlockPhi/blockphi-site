@@ -1,6 +1,8 @@
 import ScrollReveal from "../ui/ScrollReveal";
 import SectionTitle from "../ui/SectionTitle";
+import GoldAvailability from "./GoldAvailability";
 import {
+  ANALYTICS_URL,
   TIER_FREE_URL,
   TIER_GOLD_URL,
   TIER_INNER_CIRCLE_URL,
@@ -14,36 +16,9 @@ export default function Pricing() {
         <ScrollReveal className="section-header">
           <span className="section-tag">Membership</span>
           <SectionTitle>Choose your level of access.</SectionTitle>
-          <p className="section-sub">
-            Frameworks, tools, and a vetted network. Everything required to
-            allocate capital with conviction.
-          </p>
         </ScrollReveal>
 
         <ScrollReveal className="pricing-grid" stagger>
-          {/* Free */}
-          <div className="tier tier--free">
-            <div className="tier-name">Free</div>
-            <div className="tier-desc">
-              Read-only access to select channels.
-            </div>
-            <div className="tier-price">
-              <span className="tier-amount">$0</span>
-              <span className="tier-period">/forever</span>
-            </div>
-            <ul className="tier-features">
-              <li>Select Discord channels</li>
-            </ul>
-            <a
-              href={TIER_FREE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="tier-cta"
-            >
-              Join Free
-            </a>
-          </div>
-
           {/* Member */}
           <div className="tier">
             <div className="tier-name">Member</div>
@@ -55,9 +30,9 @@ export default function Pricing() {
               <span className="tier-period">/month</span>
             </div>
             <ul className="tier-features">
-              <li>Full community access</li>
-              <li>Daily market commentary</li>
-              <li>Access to 10+ analysts</li>
+              <li>Direct access to 10+ analysts</li>
+              <li>Vetted peer network</li>
+              <li>Daily Cross-Market discussions</li>
             </ul>
             <a
               href={TIER_MEMBER_URL}
@@ -74,19 +49,34 @@ export default function Pricing() {
             <div className="tier-badge">Most Popular</div>
             <div className="tier-name">Gold</div>
             <div className="tier-desc">
-              Full analytics, frameworks, and real-time positions.
+              Frameworks, quantitative macro analytics, and a vetted
+              network. All in one place.
             </div>
             <div className="tier-price">
               <span className="tier-amount">$79</span>
               <span className="tier-period">/month</span>
             </div>
+            <GoldAvailability />
             <ul className="tier-features">
-              <li>Everything in Member</li>
+              <li>Everything in Member, plus...</li>
+              <li>
+                <a
+                  href={ANALYTICS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="tier-feature-link"
+                >
+                  Full analytics terminal access
+                  <span className="tier-feature-link-arrow" aria-hidden="true">
+                    ↗
+                  </span>
+                </a>
+              </li>
               <li>Proprietary TradingView scripts</li>
+              <li>Investment frameworks</li>
               <li>Real-time portfolio positions</li>
-              <li>Macro-liquidity frameworks</li>
               <li>Premium research sources</li>
-              <li>Annual in-person summit</li>
+              <li>Annual member meetup</li>
             </ul>
             <a
               href={TIER_GOLD_URL}
@@ -100,7 +90,7 @@ export default function Pricing() {
           </div>
 
           {/* Inner Circle */}
-          <div className="tier">
+          <div className="tier tier--inner-circle">
             <div className="tier-name">Inner Circle</div>
             <div className="tier-desc">
               Gold + personal advisory and direct access.
@@ -110,11 +100,10 @@ export default function Pricing() {
               <span className="tier-period">/month</span>
             </div>
             <ul className="tier-features">
-              <li>Everything in Gold</li>
-              <li>Direct DM access to me</li>
-              <li>Monthly private advisory call</li>
+              <li>Everything in Gold, plus...</li>
+              <li>Monthly 1:1 advisory call</li>
+              <li>Direct DM access to Jack</li>
               <li>Full portfolio review</li>
-              <li>Personal network access</li>
             </ul>
             <a
               href={TIER_INNER_CIRCLE_URL}
@@ -125,6 +114,27 @@ export default function Pricing() {
               Apply for Inner Circle
             </a>
             <div className="tier-cap">Limited to 10 clients</div>
+          </div>
+
+          {/* Free — placed last so it doesn't grab the eye before the paid tiers */}
+          <div className="tier tier--free">
+            <div className="tier-name">Free</div>
+            <div className="tier-desc">
+              Read-only access to select channels.
+            </div>
+            <div className="tier-price">
+              <span className="tier-amount">$0</span>
+              <span className="tier-period">/forever</span>
+            </div>
+            <ul className="tier-features"></ul>
+            <a
+              href={TIER_FREE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="tier-cta"
+            >
+              Join Free
+            </a>
           </div>
         </ScrollReveal>
 

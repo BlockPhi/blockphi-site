@@ -25,7 +25,20 @@ export default function InsightsPage() {
         <div className="insights-container">
           <div className="insights-section-header">
             <span className="section-tag">Published Data-Driven Research &amp; Analysis</span>
-            <h2>Latest Articles</h2>
+            <div className="section-header-row">
+              <h2>Latest Articles</h2>
+              <a
+                href="https://x.com/jackgreencrypto"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="insights-realtime"
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+                <span>For real-time commentary, follow <span className="realtime-handle">@jackgreencrypto</span></span>
+              </a>
+            </div>
           </div>
           <MediumArticles />
         </div>
@@ -75,13 +88,6 @@ export default function InsightsPage() {
         <section className="subscribe-strip bg-elevated">
           <div className="insights-container">
             <span className="section-tag">Stay Informed</span>
-
-            <div className="subscribe-follow">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-              </svg>
-              <span>Follow <a href="https://x.com/jackgreencrypto" target="_blank" rel="noopener noreferrer">@jackgreencrypto</a> for real-time market commentary</span>
-            </div>
 
             <div className="subscribe-row">
               <p className="subscribe-strip-text">

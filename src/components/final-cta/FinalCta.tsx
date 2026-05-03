@@ -11,7 +11,7 @@ export default function FinalCta() {
           Invitation only.
         </h2>
         <p className="final-cta-sub">
-          Proprietary crypto and macro frameworks.
+          Quantitative crypto and macro frameworks.
           <br />
           A curated investor circle.
         </p>

@@ -24,20 +24,20 @@ const LIVESTREAMS: Omit<ShowData, 'latestEpisode'>[] = [
   {
     name: 'Setup Saturday',
     tagline: 'Crypto & Macro Outlook',
-    desc: 'Every Saturday at 2PM CET, Jack and Freek break down the week\u2019s biggest global macro data and crypto market developments.',
+    desc: 'Jack and Freek break down the week\u2019s biggest global macro data and crypto events, and how they impact Bitcoin price action.',
     cover: '/images/setup-saturday.jpg',
     playlistId: 'PLK1cGopRxJXy8QEe2Ns4LR2GrVRKCG8Pj',
     playlistUrl: 'https://youtube.com/playlist?list=PLK1cGopRxJXy8QEe2Ns4LR2GrVRKCG8Pj',
-    badges: ['Weekly', 'Live'],
+    badges: ['Saturdays · 2PM CET'],
   },
   {
     name: 'Bitcoin Under The Loupe',
     tagline: 'TA, Fundamentals & Macro',
-    desc: 'Jack and George dive deep into Bitcoin valuation metrics, on-chain data, and macro analysis for serious investors.',
+    desc: 'Jack & George dive deep into Bitcoin valuation metrics, covering every part of both Technical and Fundamental Analyses.',
     cover: '/images/bitcoin-under-the-loupe.jpg',
     playlistId: 'PLK1cGopRxJXxy_s8vRvZzPyu6nmq-dKIb',
     playlistUrl: 'https://youtube.com/playlist?list=PLK1cGopRxJXxy_s8vRvZzPyu6nmq-dKIb',
-    badges: ['Bi-weekly', 'Deep Dive'],
+    badges: ['Thursdays · 3PM CET'],
   },
 ];
 

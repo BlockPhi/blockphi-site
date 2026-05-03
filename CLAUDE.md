@@ -120,6 +120,11 @@ Never generate any of these:
 - No hype, no urgency tricks in body copy
 - Price is a filter, not a barrier
 
+## About Page — Independent Analysts
+- Order the `INDEPENDENT_ANALYSTS` array in `src/app/about/page.tsx` by X follower count, descending (most followers first).
+- Re-check and re-sort whenever an analyst is added or removed.
+- If a follower count can't be verified, ask before placing.
+
 ## Site Sections (landing page)
 1. **Nav** — Logo symbol + "BlockPhi Capital", links: Home, Analytics, Services, Insights, About, CTA: "Apply to Join"
 2. **Hero** — Headline: "Crypto Analytics & Capital Allocation", sub: "Data-driven investment frameworks, exclusive to our select investor community", VSL right, stats bottom
