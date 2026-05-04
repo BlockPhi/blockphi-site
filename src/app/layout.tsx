@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Montserrat, Cormorant_Garamond, JetBrains_Mono } from "next/font/google";
 import { SITE_URL } from "@/lib/links";
 import CookieConsent from "@/components/cookies/CookieConsent";
-import ScrollProgress from "@/components/ui/ScrollProgress";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import BgShift from "@/components/ui/BgShift";
 import "./globals.css";
@@ -31,7 +30,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 const title = "BlockPhi | Crypto Analytics & Capital Allocation";
 const description =
-  "Data-driven investment frameworks, exclusive to our select investor community. Proprietary analytics, macro-liquidity models, and curated investor access.";
+  "Data driven investment frameworks, exclusive to our select investor community. Proprietary analytics, macro liquidity models, and curated investor access.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -154,7 +153,6 @@ export default function RootLayout({
         </a>
         <SmoothScroll />
         <BgShift />
-        <ScrollProgress />
         {children}
         <CookieConsent />
         <script

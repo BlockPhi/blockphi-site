@@ -10,7 +10,7 @@ import SubstackSubscribe from "@/components/insights/SubstackSubscribe";
 export const metadata: Metadata = {
   title: "Insights | BlockPhi",
   description:
-    "Research, analysis, and market commentary from BlockPhi. Institutional-grade crypto and macro insights.",
+    "Research, analysis, and market commentary from BlockPhi. Institutional grade crypto and macro insights.",
 };
 
 export default function InsightsPage() {
@@ -24,7 +24,7 @@ export default function InsightsPage() {
       <section className="insights-section insights-section--research insights-first bg-base">
         <div className="insights-container">
           <div className="insights-section-header">
-            <span className="section-tag">Published Data-Driven Research &amp; Analysis</span>
+            <span className="section-tag">Published Data Driven Research &amp; Analysis</span>
             <div className="section-header-row">
               <h2>Latest Articles</h2>
               <a
@@ -36,7 +36,7 @@ export default function InsightsPage() {
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                 </svg>
-                <span>For real-time commentary, follow <span className="realtime-handle">@jackgreencrypto</span></span>
+                <span>For real time commentary, follow <span className="realtime-handle">@jackgreencrypto</span></span>
               </a>
             </div>
           </div>

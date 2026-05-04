@@ -1160,10 +1160,10 @@ nav {
   display: inline-flex;
   align-items: center;
   padding: 0.95rem 2.3rem 0.95rem 1.4rem;
-  border: 1px solid var(--white-12);
+  border: 1px solid var(--white-25);
   border-radius: 4px;
   background: transparent;
-  color: var(--white-60);
+  color: var(--white);
   font-family: var(--body);
   font-size: 0.78rem;
   font-weight: 400;
@@ -1182,7 +1182,7 @@ nav {
 }
 
 .btn-analytics:hover {
-  border-color: var(--white-25);
+  border-color: var(--white-40);
   color: var(--white);
 }
 
@@ -1553,9 +1553,8 @@ nav {
 .play-btn svg {
   width: 20px;
   height: 20px;
-  fill: var(--white);
-  margin-left: 3px;
-  transition: fill 0.3s var(--ease);
+  color: var(--white);
+  transition: color 0.3s var(--ease);
 }
 
 .vsl-container:hover .play-btn {
@@ -1565,7 +1564,7 @@ nav {
 }
 
 .vsl-container:hover .play-btn svg {
-  fill: var(--white);
+  color: var(--white);
 }
 
 .vsl-container:hover .play-btn::after {
@@ -1919,38 +1918,46 @@ nav {
   background-size: 24px 24px;
 }
 
+/* Tabs read as a primary nav bar (Bloomberg-style segmented control) — they
+   need visible interaction surface so the visitor recognises them as the
+   top-level switcher, not as labels. Hover gets a subtle white wash, active
+   gets a navy fill plus a 2px text-blue underline that runs the full tab
+   width. The chips below are deliberately quieter so the hierarchy reads
+   as primary (tabs) over secondary (chips). */
 .analytics-tab {
   font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   font-weight: 400;
-  color: var(--white-25);
+  color: var(--white-40);
   background: transparent;
   border: none;
-  padding: 0.85rem 0.95rem;
+  padding: 0.95rem 1.1rem;
   cursor: pointer;
-  transition: color 0.3s var(--ease);
+  transition: color 0.3s var(--ease), background-color 0.3s var(--ease);
   position: relative;
   white-space: nowrap;
 }
 
 .analytics-tab:hover {
-  color: var(--white-60);
+  color: var(--white);
+  background: rgba(252, 252, 252, 0.03);
 }
 
 .analytics-tab--active {
-  color: var(--text-blue);
+  color: var(--white);
+  background: rgba(0, 31, 63, 0.22);
 }
 
 .analytics-tab--active::after {
   content: '';
   position: absolute;
-  left: 0.95rem;
-  right: 0.95rem;
+  left: 0;
+  right: 0;
   bottom: -1px;
-  height: 1px;
-  background: var(--navy);
+  height: 2px;
+  background: var(--text-blue);
   transition: background 0.3s var(--ease);
 }
 
@@ -2071,16 +2078,20 @@ nav {
   background: rgba(252, 252, 252, 0.015);
 }
 
+/* Chips are filter pills — secondary to tabs. Slightly smaller font and
+   tighter padding so the visual weight clearly steps down from the tab
+   bar above; active state uses the brighter navy-mid border so the
+   selected chip still pops without competing with the active tab. */
 .analytics-chip {
   display: inline-flex;
   align-items: baseline;
-  gap: 0.55rem;
-  padding: 0.42rem 0.72rem;
+  gap: 0.5rem;
+  padding: 0.36rem 0.65rem;
   background: transparent;
   border: 1px solid var(--white-06);
   border-radius: 3px;
   font-family: var(--mono);
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   letter-spacing: 0.04em;
   color: var(--white-40);
   cursor: pointer;
@@ -2095,7 +2106,7 @@ nav {
 
 .analytics-chip--active {
   background: rgba(0, 31, 63, 0.18);
-  border-color: var(--navy);
+  border-color: var(--navy-mid);
   color: var(--white);
 }
 
@@ -3809,7 +3820,7 @@ nav {
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.85;
+  opacity: 0.92;
   background-image: url("/images/blockphi_about_hero.svg");
   background-repeat: no-repeat;
   background-size: 62% auto;
@@ -4138,36 +4149,108 @@ nav {
   color: var(--white);
 }
 
-/* Independent Analysts marquee - continuous horizontal scroll */
-.analysts-marquee {
+/* Independent Analysts marquee — native horizontal scroll. Auto-scroll
+   is driven from JS (AnalystsMarquee.tsx) by writing to scrollLeft, so
+   pausing on hover and trackpad/wheel/touch interaction all work
+   natively without the animation fighting the user's input. The
+   scrollbar is hidden but the container remains a real scroll
+   container, which is what enables the institutional "I can grab and
+   scroll this" affordance.
+
+   The wrap holds two absolute-positioned chevron buttons that sit on
+   top of the mask gradient so the scroll affordance is visible
+   without crowding card content. */
+.analysts-marquee-wrap {
+  position: relative;
   margin-top: 2.5rem;
-  overflow: hidden;
+}
+
+.analysts-marquee {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
   -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
           mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+
+.analysts-marquee::-webkit-scrollbar {
+  display: none;
 }
 
 .analysts-marquee-track {
   display: flex;
   width: max-content;
   gap: 3rem;
-  animation: analysts-marquee-scroll 60s linear infinite;
 }
 
-.analysts-marquee:hover .analysts-marquee-track,
-.analysts-marquee:focus-within .analysts-marquee-track {
-  animation-play-state: paused;
+/* Edge nav buttons — visible at low opacity so the scroll capability
+   is discoverable, brighten on hover/focus. Sit inside the masked
+   edge zones so they overlay the faded gradient rather than the cards. */
+.analysts-marquee-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(11, 12, 14, 0.78);
+  border: 1px solid var(--white-12);
+  color: var(--white-60);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.55;
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+  transition: opacity 0.3s var(--ease), color 0.3s var(--ease),
+              border-color 0.3s var(--ease), background 0.3s var(--ease);
+  z-index: 2;
 }
 
-@keyframes analysts-marquee-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+.analysts-marquee-wrap:hover .analysts-marquee-nav {
+  opacity: 1;
+}
+
+.analysts-marquee-nav:hover {
+  color: var(--white);
+  border-color: var(--white-25);
+  background: rgba(11, 12, 14, 0.92);
+}
+
+.analysts-marquee-nav:focus-visible {
+  outline: 1px solid var(--navy-bright);
+  outline-offset: 2px;
+  opacity: 1;
+}
+
+.analysts-marquee-nav--prev {
+  left: 8px;
+}
+
+.analysts-marquee-nav--next {
+  right: 8px;
+}
+
+@media (max-width: 767px) {
+  /* On touch devices the natural swipe gesture is the affordance;
+     edge buttons just crowd the limited width. */
+  .analysts-marquee-nav {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .analysts-marquee {
+    overflow: hidden;
+  }
   .analysts-marquee-track {
-    animation: none;
     flex-wrap: wrap;
+    width: auto;
     justify-content: center;
+  }
+  .analysts-marquee-nav {
+    display: none;
   }
 }
 
@@ -5257,20 +5340,6 @@ nav {
   .cookie-banner-btn {
     flex: 1;
   }
-}
-
-/* ═══════════════════════════════════════════
-   SCROLL PROGRESS BAR
-   ═══════════════════════════════════════════ */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 2px;
-  background: var(--text-blue);
-  z-index: var(--z-overlay);
-  pointer-events: none;
-  transition: width 0.12s linear;
 }
 
 /* ═══════════════════════════════════════════

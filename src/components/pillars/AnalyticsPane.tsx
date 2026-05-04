@@ -84,7 +84,7 @@ interface Chart {
 
 // Order matters: this is also the auto-rotation sequence. Chart IDs are
 // numbered to match display order (01 = first chip in the first tab),
-// so the counter "NN / 11" reads as a natural sequence position.
+// so the counter "NN / 12" reads as a natural sequence position.
 //
 // All captions are written to fit ~3 lines at full pillar width with
 // the line-clamp + min-height layout in globals.css. They contain no
@@ -94,8 +94,8 @@ const CHARTS: Chart[] = [
   {
     id: 1,
     src: '/images/Charts V2/GLI-W-BTC-6W-Changes.png',
-    title: 'GLI vs BTC Rate-of-Change',
-    caption: 'GLI 11W-lagged rate-of-change overlaid with BTC 6W rate-of-change. Colour codes whether GLI is expanding (green) or contracting (red). The synchrony confirms the lead operates at the rate level, not just the price level.',
+    title: 'GLI vs BTC Rate of Change',
+    caption: 'GLI 11W lagged rate of change overlaid with BTC 6W rate of change. Colour codes whether GLI is expanding (green) or contracting (red). The synchrony confirms the lead operates at the rate level, not just the price level.',
     category: 'LEAD_LAG',
   },
   {
@@ -111,14 +111,14 @@ const CHARTS: Chart[] = [
     id: 3,
     src: '/images/Charts V2/BTC vs. GL RoC.png',
     title: 'BTC × GLI Regime Bands',
-    caption: 'BTC price overlaid with GLI rate-of-change regime bands at 11-week lag. Green windows mark expansionary liquidity, time to accumulate; red windows mark contractionary, time to trim or hedge. The classifier turns the 11-week GLI lead into actionable entry and exit windows.',
+    caption: 'BTC price overlaid with GLI rate of change regime bands at 11-week lag. Green windows mark expansionary liquidity, time to accumulate; red windows mark contractionary, time to trim or hedge. The classifier turns the 11-week GLI lead into actionable entry and exit windows.',
     category: 'REGIME',
   },
   {
     id: 4,
     src: '/images/Charts V2/BTCUSD invDXY.png',
     title: 'BTC/USD vs Inverted DXY',
-    caption: 'BTC log-deviation against inverted DXY shifted forward 90 days, with ±2σ regime bands. The dollar is the primary proxy for global liquidity tightness: weakness signals abundant liquidity, fuel for BTC. Significant DXY declines have historically preceded major BTC rallies with a 94% win rate.',
+    caption: 'BTC log deviation against inverted DXY shifted forward 90 days, with ±2σ regime bands. The dollar is the primary proxy for global liquidity tightness: weakness signals abundant liquidity, fuel for BTC. Significant DXY declines have historically preceded major BTC rallies with a 94% win rate.',
     category: 'REGIME',
   },
   {
@@ -141,11 +141,18 @@ const CHARTS: Chart[] = [
     id: 7,
     src: '/images/Charts V2/Log-Log GLI BTC Model.png',
     title: 'Log-Log GLI / BTC Model',
-    caption: 'Power-law relationship between Global Liquidity and BTC in log-log space. Linear fit R² = 0.687, quadratic fit R² = 0.819. The quadratic fit captures the diminishing returns effect: each additional trillion of liquidity has slightly less price impact than the last.',
+    caption: 'Power law relationship between Global Liquidity and BTC in log-log space. Linear fit R² = 0.687, quadratic fit R² = 0.819. The quadratic fit captures the diminishing returns effect: each additional trillion of liquidity has slightly less price impact than the last.',
     category: 'MODEL',
   },
   {
     id: 8,
+    src: '/images/Charts V2/BTC-GL-Fair-Value.png',
+    title: 'BTC/GL Fair Value',
+    caption: 'BTC price plotted against its GLI-derived fair value (the same power law fit as the Log-Log model, R² = 0.819) with ±1σ and ±2σ deviation bands. Excursions above +2σ flag BTC as stretched beyond what liquidity supports; excursions below -2σ flag the opposite. The bands turn the model into a real time valuation gauge.',
+    category: 'MODEL',
+  },
+  {
+    id: 9,
     src: '/images/Charts V2/GLI BTC Transmission Scatterplot.png',
     title: 'Transmission Scatter',
     caption: "GLI change at 11-week lag against BTC log return, point by point. The slope quantifies transmission: a $1 trillion weekly increase in global liquidity predicts a 4.1% rise in BTC's weekly return exactly 11 weeks later (β = 0.0404, p < 0.01).",
@@ -154,7 +161,7 @@ const CHARTS: Chart[] = [
 
   // ── FORECAST ──
   {
-    id: 9,
+    id: 10,
     src: '/images/Charts V2/Liquidity Quantile Forecast Fan.png',
     title: 'Quantile Forecast Fan',
     caption: "BTC's forward 11-week return distribution conditional on the current 13-week GLI change. The vertical 'Current' marker plants where we are today, telling you the range of forward outcomes implied by today's liquidity conditions, not just a point estimate.",
@@ -163,17 +170,17 @@ const CHARTS: Chart[] = [
 
   // ── SENSITIVITY ──
   {
-    id: 10,
+    id: 11,
     src: '/images/Charts V2/Liquidity Sensitivity.png',
     title: 'Liquidity Sensitivity',
-    caption: '52-week rolling β between BTC returns and GLI changes. Above the 0.0404 reference: BTC is hyper-sensitive, historically the precursor to bull runs. Below: idiosyncratic events have decoupled BTC from macro drivers. A real-time read on how macro-driven the current market is.',
+    caption: '52-week rolling β between BTC returns and GLI changes. Above the 0.0404 reference: BTC is hypersensitive, historically the precursor to bull runs. Below: idiosyncratic events have decoupled BTC from macro drivers. A real time read on how macro driven the current market is.',
     category: 'SENSITIVITY',
   },
   {
-    id: 11,
+    id: 12,
     src: '/images/Charts V2/Liquidity Regimes.png',
     title: 'Regime Distributions',
-    caption: "BTC weekly return distributions across five liquidity regimes. Median returns scale monotonically from −5.7% (massive withdrawal) to +9.2% (massive injection). A non-parametric robustness check that confirms the classifier reflects a real causal mechanism, not a statistical artifact.",
+    caption: "BTC weekly return distributions across five liquidity regimes. Median returns scale monotonically from −5.7% (massive withdrawal) to +9.2% (massive injection). A nonparametric robustness check that confirms the classifier reflects a real causal mechanism, not a statistical artifact.",
     category: 'SENSITIVITY',
   },
 ];
@@ -183,11 +190,11 @@ const CHARTS: Chart[] = [
 // Regime classification only makes sense after the visitor has seen the
 // relationship being classified.
 const CATEGORIES: { key: CategoryKey; label: string; defaultId: number }[] = [
-  { key: 'LEAD_LAG',    label: 'Lead-Lag',    defaultId: 1 },
+  { key: 'LEAD_LAG',    label: 'Lead Lag',    defaultId: 1 },
   { key: 'REGIME',      label: 'Regime',      defaultId: 3 },
   { key: 'MODEL',       label: 'Model',       defaultId: 7 },
-  { key: 'FORECAST',    label: 'Forecast',    defaultId: 9 },
-  { key: 'SENSITIVITY', label: 'Sensitivity', defaultId: 10 },
+  { key: 'FORECAST',    label: 'Forecast',    defaultId: 10 },
+  { key: 'SENSITIVITY', label: 'Sensitivity', defaultId: 11 },
 ];
 
 const DWELL_MS = 6000;
@@ -434,7 +441,7 @@ export default function AnalyticsPane() {
           );
         })}
         <span className="analytics-tab-counter" aria-hidden="true">
-          {String(active.id).padStart(2, '0')} / 11
+          {String(active.id).padStart(2, '0')} / 12
         </span>
       </div>
 

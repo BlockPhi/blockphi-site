@@ -4,6 +4,7 @@ import Nav from "@/components/nav/Nav";
 import Footer from "@/components/footer/Footer";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import ContactForm from "@/components/contact/ContactForm";
+import AnalystsMarquee from "@/components/about/AnalystsMarquee";
 
 export const metadata: Metadata = {
   title: "About | BlockPhi",
@@ -154,6 +155,15 @@ const INDEPENDENT_ANALYSTS: Analyst[] = [
       { type: "x", href: "https://x.com/VynthraQuant" },
     ],
   },
+  {
+    name: "Mr.Dumpty",
+    role: "Crypto Derivatives Trader",
+    photo: "/images/Dumpty.jpg",
+    photoAlt: "Mr.Dumpty",
+    socials: [
+      { type: "x", href: "https://x.com/Trader_Dumpty" },
+    ],
+  },
 ];
 
 export default function AboutPage() {
@@ -171,11 +181,11 @@ export default function AboutPage() {
             <h1 className="about-headline">
               Investment analytics for the
               <br />
-              data-driven investor.
+              data driven investor.
             </h1>
             <p className="about-lead">
               BlockPhi is an investment analytics firm that builds
-              proprietary frameworks for crypto and cross-market capital
+              proprietary frameworks for crypto and cross market capital
               allocation. We serve a select circle of serious investors
               who value rigorous analysis over noise.
             </p>
@@ -216,7 +226,7 @@ export default function AboutPage() {
                   <strong>Phi (&#934;)</strong>: the golden ratio, a mathematical
                   constant central to Fibonacci analysis and quantitative
                   trading. It represents our commitment to structured,
-                  data-driven decision-making.
+                  data driven decision making.
                 </p>
               </div>
             </div>
@@ -247,16 +257,16 @@ export default function AboutPage() {
                 <h3>Bitcoin &amp; Digital Assets</h3>
                 <p>
                   Bitcoin valuation grounded in global liquidity, alongside
-                  on-chain analytics, cycle positioning, and risk-adjusted
+                  onchain analytics, cycle positioning, and risk adjusted
                   allocation frameworks across the crypto market.
                 </p>
               </div>
               <div className="about-coverage-item">
                 <span className="about-coverage-num">03</span>
-                <h3>Cross-Market Allocation</h3>
+                <h3>Cross Market Allocation</h3>
                 <p>
                   Portfolio construction that spans crypto, equities, commodities,
-                  and fixed income, always viewed through a macro-liquidity lens.
+                  and fixed income, always viewed through a macro liquidity lens.
                 </p>
               </div>
             </div>
@@ -349,18 +359,18 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              {/* Remy Anderson */}
+              {/* Remy Reelen */}
               <div className="about-team-member">
-                <div className="about-team-photo about-team-photo--monogram" aria-label="Remy Anderson">
-                  <span aria-hidden="true">RA</span>
+                <div className="about-team-photo about-team-photo--monogram" aria-label="Remy Reelen">
+                  <span aria-hidden="true">RR</span>
                 </div>
                 <div className="about-team-info">
-                  <h3>Remy Anderson</h3>
+                  <h3>Remy Reelen</h3>
                   <span className="about-team-role">Head Crypto &amp; Macro Analyst</span>
                   <p>
                     Remy leads crypto and macro research at BlockPhi,
-                    covering on-chain analytics, liquidity cycles, and the
-                    cross-market signals that drive capital allocation
+                    covering onchain analytics, liquidity cycles, and the
+                    cross market signals that drive capital allocation
                     decisions across digital assets.
                   </p>
                 </div>
@@ -379,73 +389,71 @@ export default function AboutPage() {
         <section className="about-section bg-elevated" id="analysts">
           <div className="about-container">
             <h2 className="about-title">Independent Analysts</h2>
-            <div className="analysts-marquee" aria-label="Independent analysts">
-              <div className="analysts-marquee-track">
-                {[...INDEPENDENT_ANALYSTS, ...INDEPENDENT_ANALYSTS].map((a, i) => {
-                  const isDupe = i >= INDEPENDENT_ANALYSTS.length;
-                  return (
-                    <article
-                      key={i}
-                      className="analysts-marquee-card"
-                      aria-hidden={isDupe || undefined}
-                    >
-                      <div className="about-team-photo">
-                        <Image
-                          src={a.photo}
-                          alt={isDupe ? "" : a.photoAlt}
-                          width={180}
-                          height={180}
-                          style={{ objectFit: "cover" }}
-                        />
-                      </div>
-                      <div className="about-team-info">
-                        <h3>{a.name}</h3>
-                        <span className="about-team-role">{a.role}</span>
-                        <div className="about-team-socials">
-                          {a.socials.map((s) => {
-                            const icon = SOCIAL_ICONS[s.type];
-                            return (
-                              <a
-                                key={s.type + s.href}
-                                href={s.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label={isDupe ? undefined : icon.label}
-                                aria-hidden={isDupe || undefined}
-                                tabIndex={isDupe ? -1 : undefined}
+            <AnalystsMarquee>
+              {[...INDEPENDENT_ANALYSTS, ...INDEPENDENT_ANALYSTS].map((a, i) => {
+                const isDupe = i >= INDEPENDENT_ANALYSTS.length;
+                return (
+                  <article
+                    key={i}
+                    className="analysts-marquee-card"
+                    aria-hidden={isDupe || undefined}
+                  >
+                    <div className="about-team-photo">
+                      <Image
+                        src={a.photo}
+                        alt={isDupe ? "" : a.photoAlt}
+                        width={180}
+                        height={180}
+                        style={{ objectFit: "cover" }}
+                      />
+                    </div>
+                    <div className="about-team-info">
+                      <h3>{a.name}</h3>
+                      <span className="about-team-role">{a.role}</span>
+                      <div className="about-team-socials">
+                        {a.socials.map((s) => {
+                          const icon = SOCIAL_ICONS[s.type];
+                          return (
+                            <a
+                              key={s.type + s.href}
+                              href={s.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={isDupe ? undefined : icon.label}
+                              aria-hidden={isDupe || undefined}
+                              tabIndex={isDupe ? -1 : undefined}
+                            >
+                              <svg
+                                width={icon.text ? icon.size * 1.7 : icon.size}
+                                height={icon.size}
+                                viewBox={icon.text ? "0 0 40 24" : "0 0 24 24"}
+                                fill="currentColor"
+                                aria-hidden="true"
                               >
-                                <svg
-                                  width={icon.text ? icon.size * 1.7 : icon.size}
-                                  height={icon.size}
-                                  viewBox={icon.text ? "0 0 40 24" : "0 0 24 24"}
-                                  fill="currentColor"
-                                  aria-hidden="true"
-                                >
-                                  {icon.path && <path d={icon.path} />}
-                                  {icon.text && (
-                                    <text
-                                      x="20"
-                                      y="18"
-                                      textAnchor="middle"
-                                      fontSize="14"
-                                      fontWeight="700"
-                                      fontFamily="var(--font-jetbrains-mono), ui-monospace, monospace"
-                                      letterSpacing="0.4"
-                                    >
-                                      {icon.text}
-                                    </text>
-                                  )}
-                                </svg>
-                              </a>
-                            );
-                          })}
-                        </div>
+                                {icon.path && <path d={icon.path} />}
+                                {icon.text && (
+                                  <text
+                                    x="20"
+                                    y="18"
+                                    textAnchor="middle"
+                                    fontSize="14"
+                                    fontWeight="700"
+                                    fontFamily="var(--font-jetbrains-mono), ui-monospace, monospace"
+                                    letterSpacing="0.4"
+                                  >
+                                    {icon.text}
+                                  </text>
+                                )}
+                              </svg>
+                            </a>
+                          );
+                        })}
                       </div>
-                    </article>
-                  );
-                })}
-              </div>
-            </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </AnalystsMarquee>
             <div className="about-affiliate-cta">
               <span className="about-affiliate-label">Independent analyst?</span>
               <a href="/about#contact" className="about-affiliate-link">

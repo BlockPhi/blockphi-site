@@ -126,8 +126,8 @@ export default function Pillars() {
 
             <h3>Curated Investor Circle</h3>
             <p>
-              An invitation-only circle of high-net-worth individuals and
-              institutions sharing high-conviction thesis reports.
+              An invitation only circle of high net worth individuals and
+              institutions sharing high conviction thesis reports.
             </p>
 
             {/* Noise-to-signal funnel visual */}

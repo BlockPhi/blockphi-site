@@ -25,7 +25,7 @@ export default function Hero() {
         <div className="hero-left">
           <div className="hero-tags">
             <span className="hero-eyebrow">
-              Crypto Analytics <span className="hero-eyebrow-sep" aria-hidden="true">·</span> Global Macro <span className="hero-eyebrow-sep" aria-hidden="true">·</span> Invite-Only Community
+              Crypto Analytics <span className="hero-eyebrow-sep" aria-hidden="true">·</span> Global Macro <span className="hero-eyebrow-sep" aria-hidden="true">·</span> Invite Only Community
             </span>
             <div className="hero-eyebrow-rule" aria-hidden="true" />
           </div>
@@ -116,8 +116,8 @@ export default function Hero() {
                 className="play-btn"
                 aria-label="Play overview video"
               >
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <polygon points="8,5 20,12 8,19" />
+                <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round">
+                  <path d="M9 6L9 18L18 12Z" fill="currentColor" />
                 </svg>
               </button>
             </div>

@@ -21,7 +21,7 @@ function isRealVideo(id: string): boolean {
 const testimonials: Testimonial[] = [
   {
     videoId: 'PLACEHOLDER_1',
-    quote: 'I was managing a high six-figure crypto portfolio and felt lost in the noise. BlockPhi gave me the structure and timely insights to move with confidence.',
+    quote: 'I was managing a high six figure crypto portfolio and felt lost in the noise. BlockPhi gave me the structure and timely insights to move with confidence.',
     name: 'Private Member',
     location: 'Amsterdam, NL',
     role: 'Portfolio above $250k',

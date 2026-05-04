@@ -32,7 +32,7 @@ export default function Pricing() {
             <ul className="tier-features">
               <li>Direct access to 10+ analysts</li>
               <li>Vetted peer network</li>
-              <li>Daily Cross-Market discussions</li>
+              <li>Daily Cross Market discussions</li>
             </ul>
             <a
               href={TIER_MEMBER_URL}
@@ -74,7 +74,7 @@ export default function Pricing() {
               </li>
               <li>Proprietary TradingView scripts</li>
               <li>Investment frameworks</li>
-              <li>Real-time portfolio positions</li>
+              <li>Real time portfolio positions</li>
               <li>Premium research sources</li>
               <li>Annual member meetup</li>
             </ul>
@@ -120,7 +120,7 @@ export default function Pricing() {
           <div className="tier tier--free">
             <div className="tier-name">Free</div>
             <div className="tier-desc">
-              Read-only access to select channels.
+              Read only access to select channels.
             </div>
             <div className="tier-price">
               <span className="tier-amount">$0</span>

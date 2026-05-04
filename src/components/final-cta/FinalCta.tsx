@@ -6,7 +6,7 @@ export default function FinalCta() {
     <section className="final-cta bg-base">
       <ScrollReveal className="container">
         <h2 className="final-cta-title">
-          Data-driven allocation.
+          Data driven allocation.
           <br />
           Invitation only.
         </h2>
